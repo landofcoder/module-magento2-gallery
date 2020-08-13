@@ -1,0 +1,330 @@
+<?php
+/**
+ * Template for displaying new products widget
+ *
+ * @var $block \Magento\Catalog\Block\Product\Widget\NewWidget
+ */
+$collection            = $this->getCollection();
+$helper                = $this->helper("Lof\Gallery\Helper\Data");
+$imageHelper           = $this->helper("Lof\Gallery\Helper\Image");
+$_helper        = $this->helper('Magento\Catalog\Helper\Output');
+/** General Settings **/
+
+$widget_title     = $this->getConfig("widget_title");
+$enable           = $this->getConfig("enable");
+$layout_mode      = $this->getConfig("layout_mode");
+$themes           = $this->getConfig("theme");
+$widget_height    = $this->getConfig("widget_height");
+$widget_width     = $this->getConfig("widget_width");
+$thumbnail_mode   = $this->getConfig("thumbnail_mode");		
+$crop_image       = $this->getConfig("crop_image");
+$thumbnail_height = $this->getConfig("thumbnail_height");
+$thumbnail_width  = $this->getConfig("thumbnail_width");
+$limit_item       = $this->getConfig("limit_item");
+$source           = $this->getConfig("source");
+$image_folder     = $this->getConfig("image_folder");
+$module_template  = $this->getConfig("module_template");
+$pretext          = $this->getConfig("gallery_pretext");
+$show_pretext     = $this->getConfig("show_gallery_pretext");
+$products_related = $this->getConfig("layout_products_related");
+$number_item      = $this->getConfig("number_item_of_col",4);
+/** Owl Carousel Settings **/
+$item_height           = (int)$this->getConfig("item_height");
+$enableNetworks        = $this->getConfig("show_socialnetwork");
+$number_item_percolumn = $this->getConfig("number_item_percolumn");
+$large_max_items       = $this->getConfig("large_max_items");
+$large_items           = $this->getConfig("large_items");
+$portrait_items        = $this->getConfig("portrait_items");
+$tablet_items          = $this->getConfig("tablet_items");
+$tablet_small_items    = $this->getConfig("tablet_small_items");
+$mobile_items          = $this->getConfig("mobile_items");
+$rtl                   = $this->getConfig("rtl");
+$autoplay              = $this->getConfig("autoplay");
+$autoplay_timeout      = $this->getConfig("autoplay_timeout");
+$autoplay_hoverpause   = $this->getConfig("autoplay_hoverpause");
+$dots                  = $this->getConfig("dots");
+$nav                   = $this->getConfig("nav");
+$loop                  = $this->getConfig("loop");
+$route                 = $helper->getConfig("latest_page/route");
+if($route !=''){}else{
+	$route = 'latest';
+}
+/** lookbook settings **/
+$easing_type 		= $this->getConfig('easing_type','linear');
+$effect 	 		= $this->getConfig('effect','toggle');	
+$effect_duration 	= $this->getConfig('effect_duration',600); 
+
+/** Gallery settings **/
+$hover_zoom     = $this->getConfig("hover_zoom");
+$show_title     = $this->getConfig("show_title");
+$show_link      = $this->getConfig("show_link"); 
+$enabled_popup  = $this->getConfig("enabled_popup");
+$html           = '';
+
+$itemsperpage   = (int)$this->getConfig('max_items');
+$lg_column_item = (int)$this->getConfig('lg_column_item',1);
+$md_column_item = (int)$this->getConfig('md_column_item',1);
+$sm_column_item = (int)$this->getConfig('sm_column_item',1);
+$xs_column_item = (int)$this->getConfig('xs_column_item',1);
+
+$lg_column      = 12/$lg_column_item;
+$md_column      = 12/$md_column_item;
+$sm_column      = 12/$sm_column_item;
+$xs_column      = 12/$xs_column_item;
+
+
+$cols 				   = (int)$this->getConfig("max_items", 1);
+$cols 				   = $cols?$cols:4;
+$span = 12/$cols;
+$small_span = 4;
+
+$i = 1;
+$x = 0;
+$total = $collection->count();
+
+$style = "";
+if( $widget_height !="" ){
+	$style .=";height:".(int) $this->getConfig("widget_height")."px";
+}
+if( $widget_width   !="" ){
+	$style .=";width:". $this->getConfig("widget_width")."";
+}
+$bannerid = 'banner' . time().rand();
+
+$classes = '';
+$carousel = '';
+
+if($products_related == 'owl'){
+	$classes = 'owl-carousel owl-theme';
+	$carousel .= 'data-items="'.$number_item_percolumn.'"';
+	$carousel .= 'data-rtl="';
+		$carousel .= $rtl?"true":"false";
+	$carousel .= '"';
+	$carousel .= 'data-autoplay="';
+		$carousel .= $autoplay?"true":"false";
+	$carousel .= '"';
+	$carousel .= 'data-autoplay-timeout="';
+		$carousel .= $this->getConfig("autoplay_timeout", 3000);
+	$carousel .= '"';
+	$carousel .= 'data-dot="';
+		$carousel .= $dots?"true":"false";
+	$carousel .= '"';
+	$carousel .= 'data-loop="';
+		$carousel .= $loop?"true":"false";
+	$carousel .= '"';
+	$carousel .= 'data-nav = "';
+		$carousel .= $nav?"true":"false";
+	$carousel .= '"';	
+	$carousel .= 'data-autoplay-hoverpause="';
+	$carousel .= $autoplay_hoverpause?"true":"false";
+	$carousel .= '"';
+	$carousel .= 'data-mobile-items="1"';
+	$carousel .= 'data-tablet-small-items="1"';
+	$carousel .= 'data-tablet-items="1"';
+	$carousel .= 'data-portrait-items="1"';
+	$carousel .= 'data-large-items="1"';
+	$carousel .= 'data-large-max-items="1"';
+}else{
+	$classes = 'plist';
+}
+?>
+
+<?php if($enable){ ?>
+	<?php if($total) { ?>
+		<div class="lof-gallery gallery_grid<?php echo $bannerid;?> <?php echo $themes; ?>" style="position:relative;float: left;<?php echo $style ?>"> 
+			<?php if($widget_title && $show_title){?>
+			<div>
+				<div class="gallery_title">
+					<h3><span><?php echo $widget_title; ?></span></h3> 
+				</div>
+				<div class="gallery_pretext">
+					<?php if($show_pretext){?>
+						<span><?php echo $pretext; ?></span>
+					<?php }?>
+				</div>
+			</div>
+			<?php }?>
+			<div class="gallery_content">
+				<div >
+					<?php $a= 0 ; $r=0; foreach ($collection as  $k => $image ){  ?>
+						<?php 
+						if($image['show_image'] == 'image_file'){
+							$image_link =	$imageHelper->getBaseMediaUrl().''.$image['file']; 
+							$image_href = $imageHelper->getBaseMediaUrl().''.$image['file'];
+						}else{
+							$image_link = $image['link'];
+							$image_href = $image['link'];
+						}
+						$open_link = isset($image['open_link'])?$image['open_link']:"";
+						$banner_link = $helper->getBannerUrl($route.'/'.$image['identify']);
+						if($open_link){
+							$banner_link = $open_link;
+						}
+						if(isset($this->getTabs()[$r])) {
+									$lg_column_item = $this->getTabs()[$r]["large_desktop"];
+									if($this->getTabs()[$r]["large_desktop"] == $a) {
+										$r++;
+										$a=0;
+									}
+									
+								}  
+						?>
+						<?php if( $lg_column_item == 1 || $a%$lg_column_item == 0){ ?>
+							<!-- START ROW -->
+						<div class="row">
+							<?php } ?>
+							<div  style="margin-bottom: 15px;" <?php echo $this->getCol($r); ?>> 
+								<div class="look_book">
+							<?php 
+							if($image['video_id']){
+								$video = 1;
+								if($image['video_type'] == 1){
+									$image_href = 'https://www.youtube.com/embed/'.$image['video_id'].'?autoplay=1'; ?>
+								<a class="<?php if($hover_zoom){ ?>zoom <?php } ?> fancybox fancybox1" data-fancybox-group="group01" title="" data-fancybox-type="iframe" href="<?php echo $image_href; ?>"> 
+								<img src="<?php echo $image_link;?>" alt="<?php echo $image['title']; ?>" />
+								</a>
+							<?php }else{ 
+								$image_href = 'http://player.vimeo.com/video/'.$image['video_id'].'?autoplay=1';?>
+								<a class="<?php if($hover_zoom){ ?>zoom <?php } ?> fancybox fancybox1" data-fancybox-group="group01" title="" data-fancybox-type="iframe" href="<?php echo $image_href; ?>">  
+								<img src="<?php echo $image_link;?>" alt="<?php echo $image['title']; ?>" />
+								</a>
+							<?php } 
+							} else{ ?>
+							<a class="<?php if($hover_zoom){ ?>zoom<?php } ?> fancybox-button " href="<?php echo $image_href;?>" alt="<?php echo $image['title'];?>" title="<?php echo $image['title']; ?>" rel="fancybox-button" data-filter="category<?php echo $image['id'] ?>">
+							<img  src="<?php echo $image_link;?>" alt="<?php echo $image['title']; ?>" alt="<?php echo $image['title']; ?>"/>
+							</a>  
+						<?php }  ?>
+						<?php  $products = $this->getProductsRelated($image->getProducts());  
+						if($image->getProducts()) {
+						?>
+						<div class="gallery-accordion">
+							<div id="accordion<?php echo $bannerid.$k;?>" class="panel-group">
+								<div class="panel panel-default">
+									<div class="panel-heading">
+										<h4 class="panel-title">
+										<a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion<?php echo $bannerid;?>" href="#"> <?php echo __('Shop the look'); ?> </a>
+										</h4>
+									</div>
+									<?php 
+									$count_products = $products?count($products):0;
+									if($count_products > 0  && $count_products < 3) {
+										$height = 360/count($products);
+										$style = 'style="height:'.$height.'px;"';
+									}else{
+										$style = 'style="height:360px;"';
+									} ?>
+									<div id="collapseAc<?php echo $bannerid.$k;?>" class="panel-collapse collapse" <?php echo $style; ?>>
+								        <div class="panel-body">
+								        	<div class="products-lookbook <?php echo $products_related; ?>" style="float: left; width: 100%">
+								                <div class="product-items products-related product-items<?php echo $bannerid.$k.' '.$classes; ?>" <?php echo $carousel; ?> >
+								                	
+									                <?php $q = 0; foreach ($products as $key => $product) { 
+									                	$_image = $imageHelper->getImg($product,80,'', 'category_page_grid');
+									                		if($product->getData()) {
+									                			$q++;
+														
+										                		if($q%$number_item == 1 || $products_related=="list") {
+										                			echo '<div class="owl-item">';
+										                		}
+										                	?>
+									                		<div class="product-block">
+									                			<div class="product-item-info">
+									                				<div class="product-image">
+									                					<a class="product-item-photo" title="<?php echo $_image->getLabel() ?>" href="<?php echo $product->getProductUrl();   ?>">
+									                						<img src="<?php echo $_image->getUrl(); ?>" alt="<?php echo $_image->getLabel(); ?>" />
+									                					</a>
+									                				</div>
+									                				<div class="product-item-details">
+									                					<div class="product-item-name">
+																			<a class="product-item-link" href="<?php echo $product->getProductUrl();   ?>"><?php echo $_helper->productAttribute($product, $product->getName(), 'name'); ?></a>
+																		</div>
+																		
+																		<?php echo $block->getLofProductPriceHtml($product); ?>															
+									                				</div>
+									                			</div>
+									     					</div>
+								     						<?php if(($q%$number_item) == 0 || ($q == $count_products)  || ($products_related=="list")) {
+									                			echo "</div>";
+									                		} 
+									                	} 
+								                	} ?>							        
+	 							                </div>
+								            </div>    
+								        </div>
+								    </div>
+								</div>
+							</div>
+						</div>	
+						<?php } ?>
+					</div>	
+					<?php if($show_link){?>
+						<div style="text-align: center;">
+							<h4 style="margin-top: 26px;">
+								<a target="_blank" class="banner-link" href="<?php echo $banner_link;?>"><?php echo $image['title']; ?></a>	
+							</h4>
+							<div class="short_desc">
+							<?php echo $block->getShortDescription($image['description']); ?>
+							</div>	
+						</div>	
+						<?php } ?>		
+					</div>
+					<?php if( $lg_column_item == 1 || ($a+1)%$lg_column_item == 0 || $i == $total ) {  ?>
+					</div>  <!-- END ROW -->
+					<?php } ?>
+					<?php $i++; $x++; $a++; ?>
+					<?php } ?>
+				</div> 
+			</div>
+		</div> 
+
+		<script>
+			require([
+				'jquery'
+				<?php if ($this->helper("Lof\All\Helper\Data")->getConfig("enable_fancybox")){ ?>
+				,'Lof_All/lib/fancybox/jquery.fancybox'
+				<?php } ?>
+				,'Lof_Gallery/js/simple-scrollbar.min'
+				], function(){
+					jQuery(document).ready(function() {
+
+						<?php if($enabled_popup){ ?>
+							jQuery(".gallery_grid<?php echo $bannerid;?> .fancybox-button").fancybox({
+								openEffect : 'elastic', 
+								autoResize:false,
+								prevEffect		: 'none',
+								nextEffect		: 'none',
+								closeBtn		: false,
+								autoCenter: false,
+								helpers: {
+									overlay: {
+										locked: false
+									}
+								}
+							});  
+							jQuery(".gallery_grid<?php echo $bannerid;?> .fancybox1").fancybox({ 
+								arrows : false,
+								autoCenter: false, 
+								helpers: {
+									overlay: {
+										locked: false
+									} 
+								},
+								iframe: {
+									preload: false
+								} 
+							}); 
+							<?php } ?>	
+
+							jQuery('a.accordion-toggle.collapsed').each(function() {
+								jQuery(this).click(function() {
+									var a = jQuery(this).parents('.panel.panel-default').children('.panel-collapse.collapse');
+									a.<?php echo $effect; ?>(<?php echo $effect_duration;?>,'<?php echo $easing_type; ?>');
+									
+								});
+							});
+							jQuery('.panel-collapse.collapse').fakeScroll();		
+						});
+				});
+		</script>
+		<?php } ?>
+	<?php } ?>

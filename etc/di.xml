@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Landofcoder
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the Landofcoder.com license that is
+ * available through the world-wide-web at this URL:
+ * http://landofcoder.com/license
+ * 
+ * DISCLAIMER
+ * 
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ * 
+ * @category   Landofcoder
+ * @package    Lof_Gallery
+ * @copyright  Copyright (c) 2016 Landofcoder (http://www.landofcoder.com/)
+ * @license    http://www.landofcoder.com/LICENSE-1.0.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magento\Widget\Controller\Adminhtml\Widget\BuildWidget" type="Lof\Gallery\Controller\Widget\Adminhtml\Widget\BuildWidget" />
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="lofgallery_banner_listing_data_source" xsi:type="string">Lof\Gallery\Model\ResourceModel\Banner\Grid\Collection</item>
+                <item name="lofgallery_category_listing_data_source" xsi:type="string">Lof\Gallery\Model\ResourceModel\Category\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Lof\Gallery\Model\ResourceModel\Banner\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">lof_gallery_banner</argument>
+            <argument name="eventPrefix" xsi:type="string">lofgallery_banner_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">banner_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Lof\Gallery\Model\ResourceModel\Banner</argument>
+        </arguments>
+    </type>
+
+    <type name="Lof\Gallery\Model\ResourceModel\Category\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">lof_gallery_banner_category</argument>
+            <argument name="eventPrefix" xsi:type="string">lofgallery_category_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">category_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Lof\Gallery\Model\ResourceModel\Category</argument>
+        </arguments>
+    </type>
+
+
+    <virtualType name="GalleryGirdFilterPool" type="Magento\Framework\View\Element\UiComponent\DataProvider\FilterPool">
+        <arguments>
+            <argument name="appliers" xsi:type="array">
+                <item name="regular" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\RegularFilter</item>
+                <item name="fulltext" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\FulltextFilter</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="GalleryGridDataProvider" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">Lof\Gallery\Model\ResourceModel\Banner\Collection</argument>
+            <argument name="filterPool" xsi:type="object" shared="false">GalleryGirdFilterPool</argument>
+        </arguments>
+    </virtualType> 
+    <virtualType name="CategoryGridDataProvider" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">Lof\Gallery\Model\ResourceModel\Category\Collection</argument>
+            <argument name="filterPool" xsi:type="object" shared="false">GalleryGirdFilterPool</argument>
+        </arguments>
+    </virtualType>
+</config>

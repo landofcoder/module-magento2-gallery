@@ -1,0 +1,123 @@
+<?php
+$collection  = $this->getCollection();
+$helper      = $this->helper("Lof\Gallery\Helper\Data");
+$imageHelper = $this->helper("Lof\Gallery\Helper\Image");
+/** General Settings **/	
+$page_layout        = $helper->getConfig("latest_page/page_layout");
+$show_toolbartop    = $helper->getConfig("latest_page/show_toolbartop");
+$show_toolbarbottom = $helper->getConfig("latest_page/show_toolbarbottom");
+$module_title       = $helper->getConfig("latest_page/module_title");
+$enable             = $helper->getConfig("latest_page/enable");
+$themes             = $helper->getConfig("latest_page/theme");
+$limit_item         = $helper->getConfig("latest_page/limit");
+$image_folder       = $helper->getConfig("latest_page/image_folder");
+$route              = $helper->getConfig("latest_page/route");
+$itemsperpage       = (int)$helper->getConfig('latest_page/max_items');
+$lg_column_item     = (int)$helper->getConfig('latest_page/lg_column_item');
+$md_column_item     = (int)$helper->getConfig('latest_page/md_column_item');
+$sm_column_item     = (int)$helper->getConfig('latest_page/sm_column_item');
+$xs_column_item     = (int)$helper->getConfig('latest_page/xs_column_item');
+$lg_column          = 12/$lg_column_item;
+$md_column          = 12/$md_column_item;
+$sm_column          = 12/$sm_column_item;
+$xs_column          = 12/$xs_column_item;
+$total              = $collection->count();
+$bannerid           = 'banner' . time().rand();
+$i                  = 1;
+$x                  = 0;
+?>
+
+<?php if($total) { ?>
+<div class="lofgallery <?php echo $themes; ?>">
+	<div class="lof-gallery" style="position:relative;float: left;">
+		<?php if($module_title) { ?>
+			<div class="gallery_title"><h2><?php echo $module_title; ?></h2></div>
+		<?php } ?>
+		<div class="gallery_content">
+			<div class="box-gallery gallery-grid-layout">
+				<?php foreach ($collection as  $k => $image ){ ?>
+				<?php if($image['show_image'] == 'image_file'){
+					$image_href = $imageHelper->getBaseMediaUrl().''.$image['file'];
+					$image_link = $imageHelper->getBaseMediaUrl().''.$image['file'];
+				}else{
+					$image_href = $image['link'];
+					$image_link = $image['link'];
+				}
+				$open_link = isset($image['open_link'])?$image['open_link']:"";
+				$banner_link = $helper->getBannerUrl($route.'/'.$image['identifier']);
+				if($open_link){
+					$banner_link = $open_link;
+				}
+				?>
+				<?php if( $lg_column_item == 1 || $x%$lg_column_item == 0){ ?>
+				<!-- START ROW -->
+				<div class="row">
+					<?php } ?>
+					<div style="margin-top:15px;" class="col-lg-<?php echo $lg_column;?> col-md-<?php echo $md_column?> col-sm-<?php echo $sm_column; ?> col-xs-<?php echo $xs_column?> ">
+						<?php 
+							if($image['video_id']){  
+							if($image['video_type'] == 1){
+								$image_href = 'https://www.youtube.com/embed/'.$image['video_id'].'?autoplay=1'; ?>
+								<a href="<?php echo $image_href; ?>" alt="<?php echo $image['title'];?>" title="<?php echo $image['title']; ?>" class="fancybox category<?php echo $image['id'] ?>"  style="padding:10px;" data-fancybox-type="iframe" data-filter="category<?php echo $image['id'] ?>">   
+								<img src="<?php echo $image_link; ?>" alt="<?php echo $image['title']; ?>" alt="<?php echo $image['title']; ?>"/>
+							</a> 
+							<?php }else{ 
+								$image_href = 'https://player.vimeo.com/video/'.$image['video_id'].'?autoplay=1';?>
+								<a href="<?php echo $image_href; ?>" alt="<?php echo $image['title'];?>" title="<?php echo $image['title']; ?>" class="fancybox category<?php echo $image['id'] ?>"  data-fancybox-type="iframe" style="padding:10px;" data-filter="category<?php echo $image['id'] ?>"> 
+								<img src="<?php echo $image_link; ?>" alt="<?php echo $image['title']; ?>" alt="<?php echo $image['title']; ?>"/>
+								</a>
+							<?php } 
+							} else{ ?>
+								<a href="<?php echo $image_href; ?>" alt="<?php echo $image['title'];?>" title="<?php echo $image['title']; ?>" class="fancybox-button category<?php echo $image['id'] ?>" rel="fancybox-button" style="padding:10px;" data-filter="category<?php echo $image['id'] ?>">
+								<img src="<?php echo $image_link; ?>" alt="<?php echo $image['title']; ?>" alt="<?php echo $image['title']; ?>"/>
+							</a>  
+						<?php } ?> 
+						<div style="text-align:center;">
+							<a class="banner-link" href="<?php echo $banner_link ?>"><?php echo $image['title']; ?></a>
+						</div>
+					</div>
+					<?php if( $lg_column_item == 1 || ($x+1)%$lg_column_item == 0 || $i == $total ) {  ?>
+				</div>  <!-- END ROW -->
+				<?php } ?>
+				<?php $i++; $x++; ?>
+				<?php } ?>
+			</div>
+		</div>
+	</div>
+	<script>
+		require([
+			'jquery',
+			'Lof_All/lib/fancybox/jquery.fancybox'
+			], function($){
+				jQuery(document).ready(function() {
+					jQuery(".fancybox-button").fancybox({
+						openEffect: 'elastic', 
+						autoResize:false,
+						prevEffect: 'none',
+						nextEffect: 'none',
+						closeBtn: false,
+						autoCenter: false,
+						helpers: {
+							overlay: {
+								locked: false
+							}
+						}
+					});
+
+					jQuery(".fancybox").fancybox({ 
+						arrows : false,
+						autoCenter: false, 
+						helpers: {
+							overlay: {
+								locked: false
+							} 
+						},
+						iframe: {
+        					preload: false
+   						 } 
+					});
+				});
+			});
+		</script>
+	</div>
+	<?php } ?>

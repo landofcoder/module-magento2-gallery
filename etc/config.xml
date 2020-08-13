@@ -1,0 +1,112 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Landofcoder
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the Landofcoder.com license that is
+ * available through the world-wide-web at this URL:
+ * http://landofcoder.com/license
+ * 
+ * DISCLAIMER
+ * 
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ * 
+ * @category   Landofcoder
+ * @package    Lof_Gallery
+ * @copyright  Copyright (c) 2016 Landofcoder (http://www.landofcoder.com/)
+ * @license    http://www.landofcoder.com/LICENSE-1.0.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+	<default>
+		<lofgallery>
+			<general_settings>
+				<enable>1</enable>
+				<url_prefix>gallery</url_prefix>
+			</general_settings>
+			<latest_page>
+				<page_layout></page_layout>
+				<show_breadcrumbs>1</show_breadcrumbs>
+				<show_toolbartop>0</show_toolbartop>
+				<show_toolbarbottom>1</show_toolbarbottom>
+				<banner_title></banner_title>
+				<meta_description></meta_description>
+				<meta_keywords></meta_keywords>
+				<module_title></module_title>
+				<theme></theme>
+				<lg_column_item>4</lg_column_item>
+				<md_column_item>4</md_column_item>
+				<sm_column_item>2</sm_column_item>
+				<xs_column_item>1</xs_column_item>
+				<limit></limit>
+				<max_items></max_items>
+			</latest_page>
+			<banner_detail>
+				<show_related>1</show_related>
+				<show_name_product>1</show_name_product>
+				<show_price_product>1</show_price_product>
+				<show_addtocart>1</show_addtocart>
+				<show_wishlist>1</show_wishlist>
+				<show_compare>1</show_compare>
+				<show_review>1</show_review>
+				<enable_owl_carousel>1</enable_owl_carousel>
+				<rtl>1</rtl>
+				<nav>1</nav>
+				<loop>0</loop>
+				<dots>1</dots>
+				<mouse_drag>0</mouse_drag>
+				<touch_drag>0</touch_drag> 
+				<margin_item>0</margin_item> 
+				<default_items>4</default_items> 
+				<mobile_items>1</mobile_items> 
+				<tablet_small_items>1</tablet_small_items> 
+				<tablet_items>2</tablet_items> 
+				<portrait_items>3</portrait_items> 
+				<large_items>5</large_items> 
+				<custom_items></custom_items> 
+				<autoplay>0</autoplay> 
+				<speed>3000</speed> 
+				<slide_by></slide_by> 
+				<number_item_percolumn>1</number_item_percolumn>
+				<thumbnail_width>300</thumbnail_width>
+				<thumbnail_height>300</thumbnail_height>
+			</banner_detail>
+			<in_product>
+				<enable>1</enable>
+				<enable_gallery>1</enable_gallery>
+				<module_title>Gallery</module_title>
+				<theme></theme> 
+				<module_height></module_height> 
+				<module_width></module_width> 
+				<thumbnail_mode></thumbnail_mode>  
+				<thumbnail_height></thumbnail_height> 
+				<thumbnail_width></thumbnail_width> 
+				<limit>12</limit> 
+				<max_items>6</max_items> 
+				<image_folder></image_folder> 
+				<enable_owl_carousel>1</enable_owl_carousel>
+				<rtl>1</rtl>
+				<nav>1</nav>
+				<loop>0</loop>
+				<dots>1</dots>
+				<mouse_drag>0</mouse_drag>
+				<touch_drag>0</touch_drag> 
+				<margin_item>0</margin_item> 
+				<default_items>4</default_items> 
+				<mobile_items>1</mobile_items> 
+				<tablet_small_items>1</tablet_small_items> 
+				<tablet_items>2</tablet_items> 
+				<portrait_items>3</portrait_items> 
+				<large_items>5</large_items> 
+				<custom_items></custom_items> 
+				<autoplay>0</autoplay> 
+				<speed>3000</speed> 
+				<slide_by></slide_by> 
+				<number_item_percolumn>1</number_item_percolumn>
+			</in_product>
+		</lofgallery>
+	</default>
+</config>

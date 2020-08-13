@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Landofcoder
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the Landofcoder.com license that is
+ * available through the world-wide-web at this URL:
+ * http://landofcoder.com/license
+ * 
+ * DISCLAIMER
+ * 
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ * 
+ * @category   Landofcoder
+ * @package    Lof_Gallery
+ * @copyright  Copyright (c) 2016 Landofcoder (http://www.landofcoder.com/)
+ * @license    http://www.landofcoder.com/LICENSE-1.0.html
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="jquery/fileUploader/css/jquery.fileupload-ui.css"/>
+    </head>
+    <update handle="editor"/>
+    <body>
+        <referenceContainer name="content">
+            <block class="Lof\Gallery\Block\Adminhtml\Banner\Edit" name="lofgallery_form_edit"/>
+        </referenceContainer>
+        <referenceContainer name="left">
+            <block class="Lof\Gallery\Block\Adminhtml\Banner\Edit\Tabs" name="lof_gallery_edit_tabs">
+                <block class="Lof\Gallery\Block\Adminhtml\Banner\Edit\Tab\Main" name="lof_gallery_edit_tab_main"/>
+                <!--<block class="Lof\Gallery\Block\Adminhtml\Banner\Edit\Tab\RelatedProducts" name="lof_gallery_edit_tab_related_products"/>-->
+                <block class="Lof\Gallery\Block\Adminhtml\Banner\Edit\Tab\Meta" name="lof_gallery_edit_tab_meta"/>
+                <action method="addTab">
+                    <argument name="name" xsi:type="string">main_section</argument>
+                    <argument name="block" xsi:type="string">lof_gallery_edit_tab_main</argument>
+                </action>
+                <!--<action method="addTab">
+                    <argument name="name" xsi:type="string">productrelated_section</argument>
+                    <argument name="block" xsi:type="string">lof_gallery_edit_tab_related_products</argument>
+                </action>-->
+                <action method="addTab">
+                    <argument name="name" xsi:type="string">meta_section</argument>
+                    <argument name="block" xsi:type="string">lof_gallery_edit_tab_meta</argument>
+                </action>
+            </block>
+        </referenceContainer>
+    </body>
+</page> 

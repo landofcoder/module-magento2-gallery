@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Landofcoder
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the Landofcoder.com license that is
+ * available through the world-wide-web at this URL:
+ * http://landofcoder.com/license
+ * 
+ * DISCLAIMER
+ * 
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ * 
+ * @category   Landofcoder
+ * @package    Lof_Gallery
+ * @copyright  Copyright (c) 2016 Landofcoder (http://www.landofcoder.com/)
+ * @license    http://www.landofcoder.com/LICENSE-1.0.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../Backend/etc/menu.xsd">
+	<menu>
+		<add id="Lof_Gallery::gallery" sortOrder="10" title="Gallery" module="Lof_Gallery" resource="Lof_Gallery::banner" parent="Lof_All::lof_all"/> 
+		<add id="Lof_Gallery::gallery_add" title="Add New Banner" module="Lof_Gallery" sortOrder="30" parent="Lof_Gallery::gallery" action="lofgallery/banner/new" resource="Lof_Gallery::banner_edit"/>
+		<add id="Lof_Gallery::gallery_manage" title="Manage Banners" module="Lof_Gallery" sortOrder="40" parent="Lof_Gallery::gallery" action="lofgallery/banner/index" resource="Lof_Gallery::banner"/> 
+		<add id="Lof_Gallery::category_add" title="Add New Category" module="Lof_Gallery" sortOrder="50" parent="Lof_Gallery::gallery" action="lofgallery/category/new" resource="Lof_Gallery::category"/>
+		<add id="Lof_Gallery::category" title="Manage Categories" module="Lof_Gallery" sortOrder="60" parent="Lof_Gallery::gallery" action="lofgallery/category/index" resource="Lof_Gallery::category"/>
+		<add id="Lof_Gallery::configuration" title="Configuration" module="Lof_Gallery" sortOrder="80" parent="Lof_Gallery::gallery" action="adminhtml/system_config/edit/section/lofgallery" resource="Lof_Gallery::config_gallery"/>
+	</menu>
+</config>

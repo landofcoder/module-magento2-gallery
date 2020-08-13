@@ -1,0 +1,317 @@
+Banners,Banners
+"Add New Banner","Add New Banner"
+"Save banner","Save banner"
+"Save and Continue Edit","Save and Continue Edit"
+"Delete Banner","Delete Banner"
+"Edit Form '%1'","Edit Form '%1'"
+"New Form","New Form"
+ID,ID
+Title,Title
+Images,Images
+"Image Url","Image Url"
+Active,Active
+Position,Position
+Action,Action
+"Banner Information","Banner Information"
+"Banner Title","Banner Title"
+Identifier,Identifier
+"Relative to Web Site Base URL","Relative to Web Site Base URL"
+"Url image","Url image"
+"Input path http:// or Choose image file","Input path http:// or Choose image file"
+Image,Image
+"Show Image","Show Image"
+"Video Types","Video Types"
+"Video ID","Video ID"
+Label,Label
+Description,Description
+"Created time","Created time"
+"Click here","Click here"
+SEO,SEO
+"Page Title","Page Title"
+Keywords,Keywords
+"Meta Keywords","Meta Keywords"
+"Meta Description","Meta Description"
+Information,Information
+"Save Category","Save Category"
+"Delete Category","Delete Category"
+"Category Information","Category Information"
+Name,Name
+"Store View","Store View"
+"Category banner","Category banner"
+"Import Configuration","Import Configuration"
+"Lof Gallery","Lof Gallery"
+"Lof Gallery Import","Lof Gallery Import"
+"Upload Custom File","Upload Custom File"
+Categories,Categories
+"Add New Category","Add New Category"
+Home,Home
+"Go to Home Page","Go to Home Page"
+name,name
+Gallery,Gallery
+Form,Form
+"You deleted the banner.","You deleted the banner."
+"We can't find a banner to delete.","We can't find a banner to delete."
+"This Banner no longer exists.","This Banner no longer exists."
+"Edit Banner","Edit Banner"
+"New Banner","New Banner"
+"A total of %1 record(s) have been deleted.","A total of %1 record(s) have been deleted."
+"This banner no longer exists.","This banner no longer exists."
+"You saved the banner.","You saved the banner."
+"You duplicated this banner.","You duplicated this banner."
+"Something went wrong while duplicating the banner.","Something went wrong while duplicating the banner."
+Category,Category
+"You deleted the category.","You deleted the category."
+"We can't find a category to delete.","We can't find a category to delete."
+"This form no longer exists.","This form no longer exists."
+"Edit Category","Edit Category"
+"New Category","New Category"
+"This Category no longer exists.","This Category no longer exists."
+"You saved the Category.","You saved the Category."
+"You duplicated this category.","You duplicated this category."
+"Something went wrong while duplicating the category.","Something went wrong while duplicating the category."
+Import,Import
+Enabled,Enabled
+Disabled,Disabled
+Twitter,Twitter
+Facebook,Facebook
+"Google Plus","Google Plus"
+Instagram,Instagram
+LinkedIn,LinkedIn
+Pinterest,Pinterest
+Empty,Empty
+"1 column","1 column"
+"2 columns with left bar","2 columns with left bar"
+"2 columns with right bar","2 columns with right bar"
+"3 columns","3 columns"
+rightTop,rightTop
+leftTop,leftTop
+leftBottom,leftBottom
+rightBottom,rightBottom
+"Show image file","Show image file"
+"Show image URL","Show image URL"
+topLeft,topLeft
+topCenter,topCenter
+topRight,topRight
+centerLeft,centerLeft
+center,center
+centerRight,centerRight
+bottomLeft,bottomLeft
+bottomCenter,bottomCenter
+bottomRight,bottomRight
+leftToRight,leftToRight
+rightToLeft,rightToLeft
+topToBottom,topToBottom
+bottomToTop,bottomToTop
+left,left
+right,right
+top,top
+bottom,bottom
+random,random
+simpleFade,simpleFade
+curtainTopLeft,curtainTopLeft
+curtainTopRight,curtainTopRight
+curtainBottomLeft,curtainBottomLeft
+curtainBottomRight,curtainBottomRight
+curtainSliceLeft,curtainSliceLeft
+curtainSliceRight,curtainSliceRight
+blindCurtainTopLeft,blindCurtainTopLeft
+blindCurtainTopRight,blindCurtainTopRight
+blindCurtainBottomLeft,blindCurtainBottomLeft
+blindCurtainBottomRight,blindCurtainBottomRight
+blindCurtainSliceBottom,blindCurtainSliceBottom
+stampede,stampede
+blindCurtainSliceTop,blindCurtainSliceTop
+mosaic,mosaic
+mosaicReverse,mosaicReverse
+mosaicRandom,mosaicRandom
+mosaicSpiral,mosaicSpiral
+mosaicSpiralReverse,mosaicSpiralReverse
+topLeftBottomRight,topLeftBottomRight
+bottomRightTopLeft,bottomRightTopLeft
+bottomLeftTopRight,bottomLeftTopRight
+scrollRight,scrollRight
+scrollHorz,scrollHorz
+scrollBottom,scrollBottom
+scrollTop,scrollTop
+pie,pie
+bar,bar
+"none ","none "
+Youtube,Youtube
+Vimeo,Vimeo
+"A banner identifier with the same properties already exists in the selected store.","A banner identifier with the same properties already exists in the selected store."
+"A category identifier with the same properties already exists in the selected store.","A category identifier with the same properties already exists in the selected store."
+Edit,Edit
+Delete,Delete
+"Delete ""${ $.$data.name }""","Delete ""${ $.$data.name }"""
+"Are you sure you wan't to delete a ""${ $.$data.name }"" record?","Are you sure you wan't to delete a ""${ $.$data.name }"" record?"
+"All Store Views","All Store Views"
+"Delete ""${ $.$data.title }""","Delete ""${ $.$data.title }"""
+"Are you sure you wan't to delete a ""${ $.$data.title }"" record?","Are you sure you wan't to delete a ""${ $.$data.title }"" record?"
+"You are visiting the page of hello world","You are visiting the page of hello world"
+"Related Product","Related Product"
+"Add to Cart","Add to Cart"
+"In stock","In stock"
+"Out of stock","Out of stock"
+"Add to Wish List","Add to Wish List"
+"Add to Compare","Add to Compare"
+"Gallery Search","Gallery Search"
+"Search for:","Search for:"
+"Search …","Search …"
+Search,Search
+"<a href=""http://landofcoder.com"" target=""_BLANK"" title=""""Magento Marketplace, Opencart Marketplace, Magento 2 Extension, Free Magento Extension, Opencart Advanced Reports"">landofcoder.com</a>","<a href=""http://landofcoder.com"" target=""_BLANK"" title=""""Magento Marketplace, Opencart Marketplace, Magento 2 Extension, Free Magento Extension, Opencart Advanced Reports"">landofcoder.com</a>"
+"General Settings","General Settings"
+"Gallery Url Prefix","Gallery Url Prefix"
+"Must NOT contain any slashes. For example: http://domain.com/gallery","Must NOT contain any slashes. For example: http://domain.com/gallery"
+"Social Buttons","Social Buttons"
+Networks,Networks
+"Gallery Page","Gallery Page"
+"Gallery Page URL Key","Gallery Page URL Key"
+"Empty to disable. Link: http://domain.com/GalleryUrlPrefix/ROUTE+GalleryUrlSuffiX","Empty to disable. Link: http://domain.com/GalleryUrlPrefix/ROUTE+GalleryUrlSuffiX"
+"Page Layout","Page Layout"
+"Show Breadcrumbs","Show Breadcrumbs"
+"Show Toolbar Top","Show Toolbar Top"
+"Show Toolbar Bottom","Show Toolbar Bottom"
+"SEO - Search Engine Optimization","SEO - Search Engine Optimization"
+Grid,Grid
+"Module Tilte","Module Tilte"
+"Empty for hide","Empty for hide"
+"Select Template","Select Template"
+"Number Column on Large Desktop","Number Column on Large Desktop"
+"Large devices Desktops (≥1200px). Use in grid layout and masonry layout","Large devices Desktops (≥1200px). Use in grid layout and masonry layout"
+"Number Column on Desktop","Number Column on Desktop"
+"Medium devices Desktops (≥992px)","Medium devices Desktops (≥992px)"
+"Number Column on Tablets","Number Column on Tablets"
+"Small devices Tablets (≥768px)","Small devices Tablets (≥768px)"
+"Number Column on Phones","Number Column on Phones"
+"Extra small devices Phones (<768px)","Extra small devices Phones (<768px)"
+Limit,Limit
+"Max Item on a Page","Max Item on a Page"
+"Banner Detail","Banner Detail"
+"Show Related Product","Show Related Product"
+"Show Product Name","Show Product Name"
+"Show Product Price","Show Product Price"
+"Show Add To Cart","Show Add To Cart"
+"Show Wish List","Show Wish List"
+"Show Compare","Show Compare"
+"Show Review","Show Review"
+"Owl Carousel Settings","Owl Carousel Settings"
+"Use OWL Carousel","Use OWL Carousel"
+"Enable Right To Left","Enable Right To Left"
+"Enable Button Navigation","Enable Button Navigation"
+"Enable Loop Carousel","Enable Loop Carousel"
+"Show dots navigations","Show dots navigations"
+"Enable Mouse Drag","Enable Mouse Drag"
+"Enable Touch Drag","Enable Touch Drag"
+"Margin Each Items","Margin Each Items"
+"Default 0","Default 0"
+"Number items on page (Default)","Number items on page (Default)"
+"Show number items when screen size between 1199px and 980px","Show number items when screen size between 1199px and 980px"
+"Number Columns On Page (Phones)","Number Columns On Page (Phones)"
+"Show number items when screen size bellow 480px","Show number items when screen size bellow 480px"
+"Number Columns On Page (Phones to Small tablets)","Number Columns On Page (Phones to Small tablets)"
+"Show number items when screen size between 641px and 480px","Show number items when screen size between 641px and 480px"
+"Number Columns On Page (Phones to tablets)","Number Columns On Page (Phones to tablets)"
+"Show number items when screen size between 768px and 641px","Show number items when screen size between 768px and 641px"
+"Number Columns On Page (Portrait tablets)","Number Columns On Page (Portrait tablets)"
+"Show number items when screen size between 979px and 769px","Show number items when screen size between 979px and 769px"
+"Number Columns On Page (Large display)","Number Columns On Page (Large display)"
+"Show number items when screen size 1200px and up","Show number items when screen size 1200px and up"
+"Custom Number Items with screen size","Custom Number Items with screen size"
+"For example: [320, 1], [360, 1], [480, 1], [568, 2], [600, 2], [640, 2], [768, 2], [900, 3], [960, 3], [1024, 3] empty to disable","For example: [320, 1], [360, 1], [480, 1], [568, 2], [600, 2], [640, 2], [768, 2], [900, 3], [960, 3], [1024, 3] empty to disable"
+AutoPlay,AutoPlay
+"AutoPlay TimeOut","AutoPlay TimeOut"
+"Slide By","Slide By"
+"Number Items will slide on a time. Default: 1","Number Items will slide on a time. Default: 1"
+"Enable Mousewheel","Enable Mousewheel"
+"Number items on column","Number items on column"
+"Number of Item per Column","Number of Item per Column"
+"Thumbnail width","Thumbnail width"
+"Thumbnail height","Thumbnail height"
+"Hover Zoom Image","Hover Zoom Image"
+Products,Products
+"Banner in product","Banner in product"
+"Enabled Gallery Block","Enabled Gallery Block"
+"Module height","Module height"
+"Module width","Module width"
+"Render Thumbnail","Render Thumbnail"
+"Owl Carousel in Product","Owl Carousel in Product"
+"Determines the duration of the transition in milliseconds.If less than 10, the number is interpreted as a speed (pixels/millisecond).This is probably desirable when scrolling items with variable sizes","Determines the duration of the transition in milliseconds.If less than 10, the number is interpreted as a speed (pixels/millisecond).This is probably desirable when scrolling items with variable sizes"
+"Lof Gallery: Images Gallery","Lof Gallery: Images Gallery"
+"Show Gallery as List layout or Carousel layout","Show Gallery as List layout or Carousel layout"
+Enable,Enable
+"Module Title","Module Title"
+"Empty for hide ","Empty for hide "
+Pretext,Pretext
+"Layout Mode","Layout Mode"
+"Choose Layout Mode for your gallery","Choose Layout Mode for your gallery"
+"Number Column on Large Desktop(Grid/List)","Number Column on Large Desktop(Grid/List)"
+"Number Column on Desktop(Grid/List)","Number Column on Desktop(Grid/List)"
+"Number Column on Tablets(Grid/List)","Number Column on Tablets(Grid/List)"
+"Number Column on Phones(Grid/List)","Number Column on Phones(Grid/List)"
+"Number Item","Number Item"
+"Enable Social Buttons","Enable Social Buttons"
+"Module Height","Module Height"
+"Module Width","Module Width"
+"Thumbnail  Height","Thumbnail  Height"
+"Thumbnail  Width","Thumbnail  Width"
+"Max Items on a Page (Or a Column if layout = grid/list)","Max Items on a Page (Or a Column if layout = grid/list)"
+"Gallery Settings","Gallery Settings"
+"Show Title","Show Title"
+"Show Pretext","Show Pretext"
+"Show Link","Show Link"
+"Enabled Image Popup","Enabled Image Popup"
+"OWL Carousel Settings","OWL Carousel Settings"
+"Item Height","Item Height"
+"Unit: pixel. Empty to set auto height","Unit: pixel. Empty to set auto height"
+"Multiple Row","Multiple Row"
+"Number Columns On Page","Number Columns On Page"
+"Show number items when screen size between 640px and 480px","Show number items when screen size between 640px and 480px"
+"Right to Left","Right to Left"
+Autoplay,Autoplay
+"Autoplay Timeout","Autoplay Timeout"
+"Autoplay HoverPause","Autoplay HoverPause"
+"Show next/prev buttons.","Show next/prev buttons."
+Loop,Loop
+"Infinity loop. Duplicate last and first items to get loop illusion.","Infinity loop. Duplicate last and first items to get loop illusion."
+"Lof Gallery : Banner Slider","Lof Gallery : Banner Slider"
+"Show banner slider as Camera","Show banner slider as Camera"
+"Show Description Banner","Show Description Banner"
+"Widget Title","Widget Title"
+"Widget Width","Widget Width"
+"Widget Height","Widget Height"
+"Limit Banner in Slider","Limit Banner in Slider"
+"Slider MinHeight","Slider MinHeight"
+"Slider AutoAdvance","Slider AutoAdvance"
+"Slider Alignment","Slider Alignment"
+"Slider MobileAutoAdvance","Slider MobileAutoAdvance"
+"Slider BarDirection","Slider BarDirection"
+"Slider BarPosition","Slider BarPosition"
+"Slider Effect","Slider Effect"
+"you can also use more than one effect, just separate them with commas: 'simpleFade, scrollRight, scrollBottom'","you can also use more than one effect, just separate them with commas: 'simpleFade, scrollRight, scrollBottom'"
+Cols,Cols
+"Some effects, such as mosaic, use 2 options for number of rows and columns.","Some effects, such as mosaic, use 2 options for number of rows and columns."
+Rows,Rows
+"Slider Height","Slider Height"
+"here you can type pixels (for instance '300px'), a percentage (relative to the width of the slideshow, for instance '50%') or auto","here you can type pixels (for instance '300px'), a percentage (relative to the width of the slideshow, for instance '50%') or auto"
+"Slider Hover","Slider Hover"
+"Pause on state hover. Not available for mobile devices","Pause on state hover. Not available for mobile devices"
+"Slider Loader","Slider Loader"
+"Slider Navigation","Slider Navigation"
+"if true the navigation button (prev, next and play/stop buttons) will be visible, if false they will be always hidden","if true the navigation button (prev, next and play/stop buttons) will be visible, if false they will be always hidden"
+"Slider NavigationHover","Slider NavigationHover"
+"if true the navigation button (prev, next and play/stop buttons) will be visible on hover state only, if false they will be visible alwaysh","if true the navigation button (prev, next and play/stop buttons) will be visible on hover state only, if false they will be visible alwaysh"
+"Slider OpacityOnGrid","Slider OpacityOnGrid"
+"Slider Overlayer","Slider Overlayer"
+"Decide to put a layer on the images to prevent the users grab them simply by clicking the right button of their mouse (.camera_overlayer)","Decide to put a layer on the images to prevent the users grab them simply by clicking the right button of their mouse (.camera_overlayer)"
+"Slider Pagination","Slider Pagination"
+"Slider PlayPause","Slider PlayPause"
+"Slider PauseOnClick","Slider PauseOnClick"
+"Slider PiePosition","Slider PiePosition"
+"Slider Time","Slider Time"
+"Slider Thumbnails","Slider Thumbnails"
+"Delete items","Delete items"
+"Are you sure you wan't to delete selected items?","Are you sure you wan't to delete selected items?"
+"URL Image","URL Image"
+"Show Image File","Show Image File"
+"Show Image Url","Show Image Url"
+Created,Created

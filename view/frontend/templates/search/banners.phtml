@@ -1,0 +1,45 @@
+<?php
+$collection            = $this->getCollection();
+$helper                = $this->helper("Lof\Gallery\Helper\Data");
+$imageHelper           = $this->helper("Lof\Gallery\Helper\Image");
+/** General Settings **/	
+$page_layout        = $helper->getConfig("latest_page/page_layout");
+$show_toolbartop    = $helper->getConfig("latest_page/show_toolbartop");
+$show_toolbarbottom = $helper->getConfig("latest_page/show_toolbarbottom");
+
+$module_title          = $helper->getConfig("latest_page/module_title");
+$enable                = $helper->getConfig("latest_page/enable");
+$themes                = $helper->getConfig("latest_page/theme");
+$limit_item            = $helper->getConfig("latest_page/limit");
+$image_folder          = $helper->getConfig("latest_page/image_folder");
+
+$itemsperpage       = (int)$helper->getConfig('latest_page/max_items');
+$lg_column_item     = (int)$helper->getConfig('latest_page/lg_column_item');
+$md_column_item     = (int)$helper->getConfig('latest_page/md_column_item');
+$sm_column_item     = (int)$helper->getConfig('latest_page/sm_column_item');
+$xs_column_item     = (int)$helper->getConfig('latest_page/xs_column_item');
+
+$lg_column          = 12/$lg_column_item;
+$md_column          = 12/$md_column_item;
+$sm_column          = 12/$sm_column_item;
+$xs_column          = 12/$xs_column_item;
+?>
+
+<?php if($collection->count()){ ?>
+<?php $total = count($collection->getItems()); ?>
+<div class="lof-gallery block <?php echo $themes; ?>">
+	<?php if($show_toolbartop){ ?>
+	<div class="blog-toolbar toolbar">
+		<?php echo $block->getChildHtml('toolbar'); ?>
+	</div>
+	<?php } ?>
+	<div class="gallery">
+		<?php echo $this->getBannerBlock(); ?>
+	</div>
+	<?php if($show_toolbarbottom){ ?>
+	<div class="gallery-toolbar toolbar">
+		<?php echo $block->getChildHtml('toolbar'); ?>
+	</div>
+	<?php } ?>
+</div>
+<?php } ?>

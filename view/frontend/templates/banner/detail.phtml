@@ -1,0 +1,265 @@
+<?php 
+use Magento\Framework\App\Action\Action;
+$collection     = $this->getCollection();
+$helper         = $this->helper("Lof\Gallery\Helper\Data");
+$imageHelper    = $this->helper("Lof\Gallery\Helper\Image");
+$_helper        = $this->helper('Magento\Catalog\Helper\Output');
+$templateType   = \Magento\Catalog\Block\Product\ReviewRendererInterface::SHORT_VIEW;
+$enableNetworks = $helper->getConfig("general_settings/enable_networks");
+$networks       = array_flip(explode(",", $helper->getConfig("general_settings/networks")));
+/*banner detail*/
+$enable_owl_carousel   = $helper->getConfig("banner_detail/enable_owl_carousel");
+$rtl                   = $helper->getConfig("banner_detail/rtl");
+$loop                  = $helper->getConfig("banner_detail/loop");
+$nav                   = $helper->getConfig("banner_detail/nav");
+$dots                  = $helper->getConfig("banner_detail/dots");
+$mouse_drag            = $helper->getConfig("banner_detail/mouse_drag");
+$touch_drag            = $helper->getConfig("banner_detail/touch_drag");
+$slide_by              = $helper->getConfig("banner_detail/slide_by");
+$margin_item           = $helper->getConfig("banner_detail/margin_item");
+$default_items         = $helper->getConfig("banner_detail/default_items");
+$mobile_items          = $helper->getConfig("banner_detail/mobile_items");
+$tablet_small_items    = $helper->getConfig("banner_detail/tablet_small_items");
+$tablet_items          = $helper->getConfig("banner_detail/tablet_items");
+$portrait_items        = $helper->getConfig("banner_detail/portrait_items");
+$large_items           = $helper->getConfig("banner_detail/large_items");
+$custom_items          = $helper->getConfig("banner_detail/custom_items");
+$autoplay              = $helper->getConfig("banner_detail/autoplay");
+$autoplay_timeout      = $helper->getConfig("banner_detail/autoplay_timeout");
+$number_item_percolumn = $helper->getConfig("banner_detail/number_item_percolumn");
+$thumbnail_width       = $helper->getConfig("banner_detail/thumbnail_width");
+$thumbnail_height      = $helper->getConfig("banner_detail/thumbnail_height");
+$show_product_name     = $helper->getConfig("banner_detail/show_name_product");
+$show_product_price    = $helper->getConfig("banner_detail/show_price_product");
+$show_addtocart        = $helper->getConfig("banner_detail/show_addtocart");
+$show_wishlist         = $helper->getConfig("banner_detail/show_wishlist");
+$show_compare          = $helper->getConfig("banner_detail/show_compare");
+$show_review           = $helper->getConfig("banner_detail/show_review");
+$show_related          = $helper->getConfig('banner_detail/show_related');
+$mousewheel            = $helper->getConfig("banner_detail/mousewheel");
+$zoom_image            = $helper->getConfig("banner_detail/zoom_image");
+$collectionProduct     = $this->getDataProduct();
+$productId             = 'product' . time().rand();
+$total                 = $collectionProduct->count();
+//var_dump($blog); 
+?>
+
+<div class="gallery-image">
+    <div class="gallery_details">
+        <?php foreach($collection as $image){ 
+            if($image['show_image'] == 'image_file'){
+                $image_href = $imageHelper->getBaseMediaUrl().''.$image['file'];
+            }else{
+                $image_href = $image['link'];
+            } 
+            ?> 
+            <div class="image-show"> 
+                <?php 
+                if($image['video_id']){
+                    if($image['video_type'] == 1){ ?> 
+                    <iframe width="100%" height="350"
+                    src="https://www.youtube.com/embed/<?php echo $image['video_id']; ?>?autoplay=1">
+                        </iframe>
+                    <?php }else{ ?>  
+                    <iframe src="https://player.vimeo.com/video/<?php echo $image['video_id']; ?>?autoplay=1" width="100%" height="350" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                    <?php } ?>
+                <?php }else{ ?>
+                    <a style="text-align: center;" href="<?php echo $image_href;?>" alt="<?php echo $image['title'];?>" title="<?php echo $image['title']; ?>" class="image-detail fancybox-button category<?php echo $image['id'] ?>" rel="fancybox-button" data-filter="category<?php echo $image['id'] ?>"  >  
+                     <img id="image_zoom" src="<?php echo $image_href;?>" alt="<?php echo $image['title']; ?>" data-zoom-image="<?php echo $image_href;?>"/>    
+                      </a>
+                <?php } ?>               
+               
+                <?php if($enableNetworks){ ?>
+                <ul class="addthis_default_style addthis_16x16_style list-social">
+                    <li><a class="addthis_button_compact"><i class="fa fa-plus"></i></a></li> 
+                    <?php if(isset($networks['googleplus'])){ ?>
+                    <li><a class="addthis_button_google"><i class="fa fa-google-plus"></i></a></li>
+                    <?php } ?>
+                    <?php if(isset($networks['linkedin'])){ ?>
+                    <li><a class="addthis_button_linkedin"><i class="fa fa-linkedin"></i></a></li>
+                    <?php } ?>
+                    <?php if(isset($networks['pinterest'])){ ?>
+                    <li><a class="addthis_button_pinterest_share"><i class="fa fa-pinterest"></i></a></li>
+                    <?php } ?>
+                    <?php if(isset($networks['twitter'])){ ?>
+                    <li ><a class="addthis_button_twitter"><i class="fa fa-twitter"></i></a></li>
+                    <?php } ?>
+                    <?php if(isset($networks['facebook'])){ ?>
+                    <li><a class="addthis_button_facebook "><i class="fa fa-facebook"></i></a></li>
+                    <?php } ?>
+                    <?php if(isset($networks['instagram'])){ ?>
+                    <li><a class="addthis_button_instagram_follow"><i class="fa fa-instagram"></i></a></li>
+                    <?php } ?>
+                </ul>
+                <?php } ?>
+            </div>
+            <div class="gallery-detail">
+                <div class="gallery_title">
+                    <h2><span><?php echo $image['title']; ?></span></h2>
+                </div>
+                <span>              <span><?php echo $image['description']?></span>    </span>
+            </div>
+            <?php } ?>
+        </div>
+        <?php if($show_related && $total){ ?>
+        <div class="gallery_details">
+            <div class="gallery_title" style="margin-top:50px;">
+                <h3><span><?php echo __('Related Product'); ?></span></h3>    
+            </div>
+            <div class="owl-carousel" id="<?php echo $productId; ?>" >
+                <?php foreach($collectionProduct as $_product){  ?>
+                <div class="product-item-info">
+                    <div class="product-image">
+                        <?php // Product Image ?>
+                        <?php
+                        $_image = $imageHelper->getImg($_product,$thumbnail_width,$thumbnail_height, 'category_page_grid');
+                        ?>
+                        <?php if($_image){ ?>
+                        <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $_image->getLabel() ?>" class="product-item-photo">
+                            <img src="<?php echo $_image->getUrl(); ?>" alt="<?php echo $_image->getLabel() ?>" />
+                        </a>
+                        <?php } ?>
+
+                        <div class="product details product-item-details">
+                            <?php
+                            $_productNameStripped = $block->stripTags($_product->getName(), null, true);
+                            ?>
+                            <?php if($show_product_name){?>
+                            <strong class="product name product-item-name">
+                                <a class="product-item-link"
+                                href="<?php echo $_product->getProductUrl() ?>">
+                                <?php echo $_helper->productAttribute($_product, $_product->getName(), 'name'); ?>
+                            </a>
+                        </strong>
+                        <?php } ?>
+                        <?php if($show_review){echo $block->getReviewsSummaryHtml($_product, $templateType, true);}?>
+                        <?php if($show_product_price){var_dump($block->getProductPrice($_product)); echo $block->getProductPrice($_product);} ?>
+                        <?php if($show_wishlist || $show_compare || $show_addtocart){ ?>
+                        <div class="product-item-inner">
+                            <div class="product actions product-item-actions">
+                                <div class="actions-primary">
+                                    <?php if ($_product->isSaleable()): ?>
+                                        <?php $postParams = $block->getAddToCartPostParams($_product); ?>
+                                        <form data-role="tocart-form" action="<?php echo $postParams['action']; ?>" method="post">
+                                            <input type="hidden" name="product" value="<?php echo $postParams['data']['product']; ?>">
+                                            <input type="hidden" name="<?php echo Action::PARAM_NAME_URL_ENCODED; ?>" value="<?php echo $postParams['data'][Action::PARAM_NAME_URL_ENCODED]; ?>">
+                                            <?php echo $block->getBlockHtml('formkey')?>
+                                            <button type="submit"
+                                            title="<?php echo $block->escapeHtml(__('Add to Cart')); ?>"
+                                            class="action tocart primary">
+                                            <span><?php echo __('Add to Cart') ?></span>
+                                        </button>
+                                    </form>
+                                <?php else: ?>
+                                    <?php if ($_product->getIsSalable()): ?>
+                                        <div class="stock available"><span><?php echo __('In stock') ?></span></div>
+                                    <?php else: ?>
+                                        <div class="stock unavailable"><span><?php echo __('Out of stock') ?></span></div>
+                                    <?php endif; ?>
+                                <?php endif; ?>
+                            </div>
+                            <?php if($show_wishlist || $show_compare){ ?>
+                            <div data-role="add-to-links" class="actions-secondary">
+                                <?php if ($this->helper('Magento\Wishlist\Helper\Data')->isAllow()): ?>
+                                    <a href="#"
+                                    class="add-to-wishlist"
+                                    title="<?php echo $block->escapeHtml(__('Add to Wish List')); ?>"
+                                    aria-label="<?php echo $block->escapeHtml(__('Add to Wish List')); ?>"
+                                    data-post='<?php echo $block->getAddToWishlistParams($_product); ?>'
+                                    data-action="add-to-wishlist"
+                                    role="button">
+                                    <span><?php echo __('Add to Wish List') ?></span>
+                                </a>
+                            <?php endif; ?>
+                            <?php
+                            $compareHelper = $this->helper('Magento\Catalog\Helper\Product\Compare');
+                            ?>
+                            <a href="#"
+                            class="add-to-compare"
+                            title="<?php echo $block->escapeHtml(__('Add to Compare')); ?>"
+                            aria-label="<?php echo $block->escapeHtml(__('Add to Compare')); ?>"
+                            data-post='<?php echo $compareHelper->getPostDataParams($_product); ?>'
+                            role="button">
+                            <span><?php echo __('Add to Compare') ?></span>
+                        </a>
+                    </div>
+                    <?php } ?>
+                </div>
+            </div>
+            <?php } ?>
+        </div>
+    </div>
+</div>
+<?php } ?>
+</div>
+</div>
+<?php } ?>
+</div>
+
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-57510af206df4bd0"></script>
+<script>
+    require([
+        'jquery',
+        'Lof_All/lib/fancybox/jquery.fancybox',
+        'Lof_All/lib/owl.carousel/owl.carousel.min',
+        'Lof_Gallery/js/jquery.elevateZoom-3.0.8.min'
+        ], function(){
+            jQuery(document).ready(function() {
+                jQuery(".fancybox-button").fancybox({
+                    openEffect : 'elastic', 
+                    autoResize:false,
+                    prevEffect      : 'none',
+                    nextEffect      : 'none',
+                    closeBtn        : true,
+                    autoCenter: false,
+                    helpers: {
+                        overlay: {
+                            locked: false
+                        }
+                    }
+                });
+
+                <?php if($zoom_image){?>
+                    jQuery("#image_zoom").elevateZoom({ zoomType    : "inner", cursor: "crosshair" });
+                    <?php } ?>
+                    var owl = jQuery('#<?php echo $productId ?>');
+                    owl.owlCarousel({
+                        rtl: <?php echo $rtl?"true":"false" ?>,
+                        loop:<?php echo $loop?"true":"false" ?>,
+                        nav:<?php echo $nav?"true":"false" ?>,
+                        dots:<?php echo $dots?"true":"false" ?>,
+                        slideBy: <?php echo (isset($slide_by) && $slide_by)?(int)$slide_by:1; ?>,
+                        margin: <?php echo $margin_item?(int)$margin_item:'0'; ?>,
+                        mouseDrag: <?php echo $mouse_drag == 1?'true':'false'; ?>,
+                        touchDrag: <?php echo $touch_drag == 1?'true':'false'; ?>,
+                        <?php if($autoplay){ ?>
+                            autoplay:true,
+                            autoplayTimeout: <?php echo $speed ?>,
+                            <?php } ?>
+                            responsive:{
+                                0 : { items: <?php echo $mobile_items ?>},
+                                480 : {items: <?php echo $tablet_small_items ?>},
+                                640 : {items: <?php echo $tablet_items ?>},
+                                768 : {items: <?php echo $portrait_items ?>},
+                                980 : {items: <?php echo $default_items ?>},
+                                1200 : {items: <?php echo $large_items ?>},
+                            },
+                        }); 
+                    <?php if($mousewheel){ ?>
+                        owl.on('mousewheel', '.product-item-info', function (e) {
+                            console.log(e.originalEvent.deltaY);
+                            if (e.originalEvent.deltaY>0) {
+                                owl.trigger('next.owl');
+                            } else {
+                                owl.trigger('prev.owl');
+                            }
+                            e.preventDefault();
+                        });
+                        <?php } ?>
+                        jQuery('.owl-prev').html('<i class="fa fa-angle-left">');
+                        jQuery('.owl-next').html('<i class="fa fa-angle-right">');
+
+
+                    });
+        });
+</script>

@@ -1,0 +1,14 @@
+<?php
+$helper = $this->helper("Lof\Gallery\Helper\Data");
+?>
+<div class="gallery-searchform block">
+	<div class="block-title">
+		<strong><?php echo __('Gallery Search'); ?></strong>
+	</div>
+	<div class="block-content">
+		<form role="search" method="get" class="search-form" action="<?php echo $helper->getSearchFormUrl(); ?>" data-mage-init='{"validation":{}}'>
+			<input type="search" class="search-field required-entry" placeholder="<?php echo __('Search …'); ?>" value="<?php echo $helper->getSearchKey() ?>" name="s" title="<?php echo __('Search for:'); ?>">
+			<button type="submit" class="search-submit"><i class="fa fa-search"></i></button></span></button>
+		</form>
+	</div>
+</div>

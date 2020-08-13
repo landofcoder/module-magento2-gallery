@@ -1,0 +1,241 @@
+<?php
+$collection            = $this->getCollection();
+$helper                = $this->helper("Lof\Gallery\Helper\Data");
+$imageHelper           = $this->helper("Lof\Gallery\Helper\Image");
+$route          	   = $helper->getConfig("latest_page/route");
+if($route ==''){
+	$route = 'latest';
+}
+
+/** General Settings **/
+//$dateFormat            = $helper->getConfig("general_settings/dateformat");
+//$networks              = array_flip(explode(",", $helper->getConfig("general_settings/networks")));
+$widget_title          = $this->getConfig("widget_title");
+$enable                = $this->getConfig("enable");
+$layout_mode           = $this->getConfig("layout_mode");
+$themes                = $this->getConfig("theme");
+$widget_height         = $this->getConfig("widget_height");
+$widget_width          = $this->getConfig("widget_width");
+$thumbnail_mode        = $this->getConfig("thumbnail_mode");		
+$crop_image            = $this->getConfig("crop_image");
+$thumbnail_height      = $this->getConfig("thumbnail_height");
+$thumbnail_width       = $this->getConfig("thumbnail_width");
+$limit_item            = $this->getConfig("limit_item");
+$max_items             = $this->getConfig("max_items");
+$source                = $this->getConfig("source");
+$image_folder          = $this->getConfig("image_folder");
+$module_template       = $this->getConfig("module_template");
+$pretext			   = $this->getConfig("gallery_pretext");
+$show_pretext			= $this->getConfig("show_gallery_pretext");
+/** Owl Carousel Settings **/
+$item_height           = (int)$this->getConfig("item_height");
+$enableNetworks        = $this->getConfig("show_socialnetwork");
+$number_item_percolumn = $this->getConfig("number_item_percolumn");
+$large_max_items       = $this->getConfig("large_max_items");
+$large_items           = $this->getConfig("large_items");
+$portrait_items        = $this->getConfig("portrait_items");
+$tablet_items          = $this->getConfig("tablet_items");
+$tablet_small_items    = $this->getConfig("tablet_small_items");
+$mobile_items          = $this->getConfig("mobile_items");
+$rtl                   = $this->getConfig("rtl");
+$autoplay              = $this->getConfig("autoplay");
+$autoplay_timeout      = $this->getConfig("autoplay_timeout");
+$autoplay_hoverpause   = $this->getConfig("autoplay_hoverpause");
+$dots                  = $this->getConfig("dots");
+$nav                   = $this->getConfig("nav");
+$loop                  = $this->getConfig("loop");
+$mousewheel			   = $this->getConfig("mousewheel");
+$hover_zoom				= $this->getConfig("hover_zoom");
+/** Post Settings **/
+$show_title            = $this->getConfig("show_title");
+$show_link             = $this->getConfig("show_link"); 
+$enabled_popup         = $this->getConfig("enabled_popup");
+$html                  = '';
+$i = 1;
+$x = 0;
+$total = $collection->count();
+if($total%$number_item_percolumn == 0){
+	$column = $total/$number_item_percolumn;
+}else{
+	$column = floor($total/$number_item_percolumn)+1;
+}
+$_galleryCollection = [];
+$i = $x = 0;
+foreach ($collection as $_post) {
+	if($i<$column){
+		$i++;
+	}else{
+		$i = 1;
+		$x++;
+	}
+	$_galleryCollection[$i][$x] = $_post;
+}
+$style = "";
+if( $widget_height !="" ){
+	$style .=";height:".(int) $this->getConfig("widget_height")."px";
+}
+if( $widget_width   !="" ){
+	$style .=";width:". $this->getConfig("widget_width")."";
+}else{
+	$style .=";width:100%";
+}
+$bannerid = 'banner' . time().rand();
+$blockId = 'gallery-' . time().rand();
+?>
+<?php if($enable){ ?>
+<?php if($total){ ?>
+<div class="lof-gallery gallery<?php echo $bannerid;?> <?php echo $themes; ?>" id="<?php echo $blockId; ?>" style="<?php echo $style ?>">
+	<?php if($show_title && $widget_title){ ?>
+	<div>
+		<div class="gallery_title">
+			<h3><span><?php echo $widget_title; ?></span></h3> 
+		</div>
+		<?php if($show_pretext && $pretext){?>
+		<div class="gallery_pretext">
+			<span><?php echo $pretext; ?></span>
+		</div>
+		<?php }?>
+	</div>
+	<?php } ?>
+	<div class="block-content">
+		<div class="gallery_content">
+			<?php if($total>0){ ?>
+			<div id="<?php echo $bannerid; ?>" class="owl-carousel" >
+				<?php foreach ($_galleryCollection as $bannerCollection) { ?>
+				<div class="gallery_category grid">
+					<?php foreach ($bannerCollection as $_bannerCollection) { ?>
+					<?php
+					$style = '';
+					if($layout_mode=='owl' && $thumbnail_height>0){
+						$style = 'style="height:' . $thumbnail_height . 'px"';
+					}  
+					if($_bannerCollection->getShowImage() == 'image_file'){
+						$image_href = $imageHelper->getBaseMediaUrl().''.$_bannerCollection->getFile();
+						$image_link = $imageHelper->getBaseMediaUrl().''.$_bannerCollection->getFile();
+					}else{
+						$image_href = $_bannerCollection->getLink();
+						$image_link = $_bannerCollection->getLink(); 
+					}
+					$open_link = $_bannerCollection->getOpenLink();
+					$banner_link = $helper->getBannerUrl($route.'/'.$_bannerCollection->getIdentifier());
+					if($open_link){
+						$banner_link = $open_link;
+					} 
+					?>
+					<div class="gallery_banner">
+						<div class="banner <?php if($hover_zoom){?>zoom<?php }?>"> 
+							<?php 
+								if($_bannerCollection->getVideoId()){
+									$video = 1;
+								if($_bannerCollection->getVideoType() == 1){
+									$image_href = 'https://www.youtube.com/embed/'.$_bannerCollection->getVideoId().'?autoplay=1'; ?> 
+								<a class="<?php if($hover_zoom){ ?>zoom <?php } ?> fancybox fancybox1" data-fancybox-group="group01" title="" data-fancybox-type="iframe" href="<?php echo $image_href; ?>">     
+								<img src="<?php echo $image_link; ?>" alt="<?php echo $_bannerCollection->getTitle(); ?>"/>
+								</a>
+								<?php }else{ 
+									$image_href = 'https://player.vimeo.com/video/'.$_bannerCollection->getVideoId().'?autoplay=1'; ?>
+								<a class="<?php if($hover_zoom){ ?>zoom <?php } ?> fancybox fancybox1" data-fancybox-group="group01" title="" data-fancybox-type="iframe" href="<?php echo $image_href; ?>">     
+								<img src="<?php echo $image_link; ?>" alt="<?php echo $_bannerCollection->getTitle(); ?>"/>
+								</a>
+								<?php } 
+								} else{ ?>
+									<a href="<?php echo $image_href;?>" alt="<?php echo $_bannerCollection->getTitle();?>" title="<?php echo $_bannerCollection->getTitle(); ?>"  class="<?php if($_bannerCollection->getVideoId()){?>fancybox<?php }else{?> fancybox-button<?php } ?>" rel="fancybox-button" >
+										<img src="<?php echo $image_link; ?>" alt="<?php echo $_bannerCollection->getTitle(); ?>"/>
+									</a>
+								<?php } ?>
+						</div>
+						<?php if($show_link){?>
+						<div class="lofgallery-ptitle"><a target="_blank" class="banner-link" href="<?php echo $banner_link?>"><?php echo $_bannerCollection->getTitle(); ?></a>	
+						</div>	
+						<?php }?>	
+					</div>
+					<?php } ?>
+				</div>
+				<?php }?>	
+			</div>
+			<?php }?>
+		</div>
+	</div>
+</div>
+<?php } ?> 
+<script>
+	require([
+		'jquery'
+		<?php if ($this->helper("Lof\All\Helper\Data")->getConfig("enable_owlcarousel")){ ?>
+		,'Lof_All/lib/owl.carousel/owl.carousel'
+		<?php } ?>
+		<?php if ($this->helper("Lof\All\Helper\Data")->getConfig("enable_fancybox")){ ?>
+		,'Lof_All/lib/fancybox/jquery.fancybox' 
+		<?php } ?>
+		], function(){
+			jQuery(document).ready(function() {
+				var owl = jQuery('#<?php echo $bannerid ?>');
+				owl.owlCarousel({
+					rtl: <?php echo $rtl?"true":"false" ?>,
+					loop:<?php echo $loop?"true":"false" ?>,
+					nav:<?php echo $nav?"true":"false" ?>,
+					dots:<?php echo $dots?"true":"false" ?>,
+					lazyLoad: true,
+					<?php if($autoplay){ ?>
+						autoplay:true,
+						autoplayTimeout: <?php echo $autoplay_timeout ?>,
+						autoplayHoverPause: <?php echo $autoplay_hoverpause ?>,
+						<?php } ?>
+						responsive:{
+							0 : { items: <?php echo $mobile_items ?>},
+							480 : {items: <?php echo $tablet_small_items ?>},
+							640 : {items: <?php echo $tablet_items ?>},
+							768 : {items: <?php echo $portrait_items ?>},
+							980 : {items: <?php echo $large_items ?>},
+							1200 : {items: <?php echo $large_max_items ?>},
+						},
+					});
+				<?php if($enabled_popup){ ?> 
+					jQuery(".gallery<?php echo $bannerid;?> .fancybox-button").fancybox({
+						openEffect : 'elastic', 
+						autoResize:false,
+						prevEffect: 'none',
+						nextEffect: 'none',
+						closeBtn: false,
+						autoCenter: false,
+						helpers: {
+							overlay: {
+								locked: false
+							}
+						} 
+					});   
+					jQuery(".gallery<?php echo $bannerid;?> .fancybox1").fancybox({ 
+						arrows : false,
+						autoCenter: false, 
+						helpers: {
+							overlay: {
+								locked: false
+							} 
+						},
+						iframe: {
+        					preload: false
+   						 } 
+					}); 
+					<?php }?>
+
+
+
+
+					<?php if($mousewheel){ ?>
+						owl.on('mousewheel', '.gallery_category','.fancybox-wrap', function (e) {
+							console.log(e.originalEvent.deltaY);
+							if (e.originalEvent.deltaY>0) {
+								owl.trigger('next.owl');
+							} else {
+								owl.trigger('prev.owl');
+							}
+							e.preventDefault();
+						});
+						<?php } ?>
+
+						jQuery('#<?php echo $blockId; ?> .owl-prev').html('<i class="fa fa-angle-left">');
+						jQuery('#<?php echo $blockId; ?> .owl-next').html('<i class="fa fa-angle-right">');
+					});
+		});
+	</script>
+<?php } ?> 

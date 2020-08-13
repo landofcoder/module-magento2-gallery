@@ -1,0 +1,218 @@
+<?php
+
+$collection            = $this->getCollection();
+$helper                = $this->helper("Lof\Gallery\Helper\Data");
+$imageHelper           = $this->helper("Lof\Gallery\Helper\Image");
+
+/** General Settings **/
+// $dateFormat            = $helper->getConfig("general_settings/dateformat");
+$enableNetworks     = $this->getConfig("enable_networks");
+$networks           = array_flip(explode(",", $this->getConfig("networks")));
+$widget_title          = $this->getConfig("widget_title");
+$enable                = $this->getConfig("enable");
+$layout_mode           = $this->getConfig("layout_mode");
+$themes                = $this->getConfig("theme");
+$widget_height         = $this->getConfig("widget_height");
+$widget_width          = $this->getConfig("widget_width");
+$thumbnail_mode        = $this->getConfig("thumbnail_mode");		
+$crop_image            = $this->getConfig("crop_image");
+$thumbnail_height      = $this->getConfig("thumbnail_height");
+$thumbnail_width       = $this->getConfig("thumbnail_width");
+$limit_item            = $this->getConfig("limit_item");
+$source                = $this->getConfig("source");
+$image_folder          = $this->getConfig("image_folder");
+$module_template       = $this->getConfig("module_template");
+$number_items         = $this->getConfig("number_items",6);
+$pretext			   = $this->getConfig("gallery_pretext");
+$show_pretext			= $this->getConfig("show_gallery_pretext");
+/** Owl Carousel Settings **/
+$item_height           = (int)$this->getConfig("item_height");
+//$enableNetworks        = $this->getConfig("show_socialnetwork");
+$number_item_percolumn = $this->getConfig("number_item_percolumn");
+$large_max_items       = $this->getConfig("large_max_items");
+$large_items           = $this->getConfig("large_items");
+$portrait_items        = $this->getConfig("portrait_items");
+$tablet_items          = $this->getConfig("tablet_items");
+$tablet_small_items    = $this->getConfig("tablet_small_items");
+$mobile_items          = $this->getConfig("mobile_items");
+$rtl                   = $this->getConfig("rtl");
+$autoplay              = $this->getConfig("autoplay");
+$autoplay_timeout      = $this->getConfig("autoplay_timeout");
+$autoplay_hoverpause   = $this->getConfig("autoplay_hoverpause");
+$dots                  = $this->getConfig("dots");
+$nav                   = $this->getConfig("nav");
+$loop                  = $this->getConfig("loop");
+
+$route          	   = $helper->getConfig("latest_page/route");
+if($route !=''){}else{
+	$route = 'latest';
+}
+
+/** Gallery settings **/
+$hover_zoom				= $this->getConfig("hover_zoom");
+$show_title            = $this->getConfig("show_title");
+$show_link             = $this->getConfig("show_link"); 
+$enabled_popup         = $this->getConfig("enabled_popup");
+$html                  = '';
+
+$cols 				   = (int)$this->getConfig("max_items", 1);
+$cols 				   = $cols?$cols:4;
+$span = 12/$cols;
+$small_span = 4;
+
+$i = 1;
+$x = 0;
+$total = $collection->count();
+
+$style = "";
+if( $widget_height !="" ){
+	$style .=";height:".(int) $this->getConfig("widget_height")."px";
+}
+if( $widget_width   !="" ){
+	$style .=";width:". $this->getConfig("widget_width")."";
+}
+$bannerid = 'banner' . time().rand();
+
+?>
+<?php if($enable ){ ?>
+<?php if($total) { ?>
+
+
+	<div class="lof-gallery gallery_masony<?php echo $bannerid;?> <?php echo $themes; ?>" style="position:relative;float: left;<?php echo $style ?>">
+		<?php if($widget_title && $show_title){?>
+			<div>
+			<div class="gallery_title">
+				<h3><span><?php echo $widget_title; ?></span></h3> 
+			</div>
+			<div class="gallery_pretext">
+				<?php if($show_pretext){?>
+					<span><?php echo $pretext; ?></span>
+				<?php }?>
+			</div>
+			</div>
+			<?php }?>
+			<div class="block-content">
+				<div class="masonry " id="grid<?php echo $bannerid; ?>">
+					<div class="grid-sizer"></div>
+					<?php $number = 1; ?>
+					<?php foreach ($collection as  $k => $image ):  ?>
+					<?php  
+					if($image['show_image'] == 'image_file'){
+						$image_link =	$imageHelper->getBaseMediaUrl().''.$image['file']; 
+						$image_href = $imageHelper->getBaseMediaUrl().''.$image['file'];
+					}else{
+						$image_link = $image['link'];
+						$image_href = $image['link'];
+					} 
+					$open_link = isset($image['open_link'])?$image['open_link']:"";
+					$banner_link = $helper->getBannerUrl($route.'/'.$image['identifier']);
+					if($open_link){
+						$banner_link = $open_link;
+					}
+
+					?>
+					<div class="grid-item" style="float: left;width:<?php echo 100/$number_items;?>%;padding: 10px;"> 
+						<div class="style1" > 
+						<?php 
+							if($image['video_id']){
+								$video = 1;
+							if($image['video_type'] == 1){
+								$image_href = 'https://www.youtube.com/embed/'.$image['video_id'].'?autoplay=1'; ?>
+								<a class="<?php if($hover_zoom){ ?>zoom <?php } ?> fancybox fancybox1"  title="" data-fancybox-type="iframe" href="<?php echo $image_href; ?>">   
+								<img src="<?php echo $image_link;?>" alt="<?php echo $image['title']; ?>" />
+							</a> 
+							<?php }else{ 
+								$image_href = 'https://player.vimeo.com/video/'.$image['video_id'].'?autoplay=1';?> 
+								<a class="<?php if($hover_zoom){ ?>zoom <?php } ?> fancybox fancybox1"  title="" data-fancybox-type="iframe" href="<?php echo $image_href; ?>">  
+							<img src="<?php echo $image_link;?>" alt="<?php echo $image['title']; ?>" />
+								</a>
+							<?php } 
+							} else{ ?>
+								<a class="<?php if($hover_zoom){ ?>zoom <?php } ?> fancybox-button" href="<?php echo $image_href;?>" alt="<?php echo $image['title'];?>" title="<?php echo $image['tilte']; ?>" rel="fancybox-button" >
+								<img src="<?php echo $image_link;?>" alt="<?php echo $image['title']; ?>" />
+							</a>  
+							<?php } ?>
+
+							
+							<div class="description_img">
+								<?php if($show_link){?>
+								<a class="banner-link" target="_blank" href="<?php echo $banner_link; ?>"><span><?php echo $image['title']?></span>
+								</a> 
+								<?php }?>
+								<?php if($enableNetworks){ ?>
+									<div class=" addthis_default_style " addthis:url="<?php echo $helper->getBannerUrl($route.'/'.$image['identifier']); ?>">
+			                    	<?php if(isset($networks['linkedin'])){ ?>
+				                    <a class="addthis_button_linkedin icon" ><i class="fa fa-linkedin"></i></a>
+				                    <?php } ?>
+                                    <?php if(isset($networks['facebook'])){ ?>
+									<a class="addthis_button_facebook icon "  ><i class="fa fa-facebook"></i></a>
+									<?php } ?>
+									 <?php if(isset($networks['googleplus'])){ ?>
+									<a class="addthis_button_google icon"><i class="fa fa-google-plus"></i></a>
+									<?php } ?>
+				                    <?php if(isset($networks['instagram'])){ ?>
+									<a class="addthis_button_instagram_follow icon"><i class="fa fa-instagram"></i></a>
+									<?php } ?>
+				                    <?php if(isset($networks['twitter'])){ ?>
+									<a class="addthis_button_twitter icon"><i class="fa fa-twitter"></i></a>
+									<?php } ?>
+				                    <?php if(isset($networks['pinterest'])){ ?>
+				                     <a class="addthis_button_pinterest_share icon"><i class="fa fa-pinterest"></i></a> 
+				                    <?php } ?> 
+									</div> 
+                				<?php } ?>
+							</div>
+
+						</div>
+					</div>
+				<?php endforeach; ?>
+			</div>
+		</div>
+	</div> 
+	<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-57510af206df4bd0"></script>
+	<script>
+		require([
+			'jquery'
+			<?php if ($this->helper("Lof\All\Helper\Data")->getConfig("enable_fancybox")){ ?>
+			,'Lof_All/lib/fancybox/jquery.fancybox'
+			<?php } ?>
+			,'Lof_Gallery/js/masonry.pkgd.min' 
+			], function($, fancybox, Masonry){
+				jQuery(document).ready(function() {
+					<?php if($enabled_popup){?>  
+					
+					jQuery(".gallery_masony<?php echo $bannerid;?> .fancybox-button").fancybox({ 
+						openEffect : 'elastic', 
+						autoResize:false, 
+						prevEffect		: 'none',
+						nextEffect		: 'none',
+						closeBtn		: false,
+						autoCenter: false, 
+						helpers: {
+							overlay: {
+								locked: false
+							} 
+						} 
+					});
+					jQuery(".gallery_masony<?php echo $bannerid;?> .fancybox1").fancybox({ 
+						arrows : false,
+						autoCenter: false, 
+						helpers: {
+							overlay: {
+								locked: false
+							} 
+						},
+						iframe: {
+        					preload: false
+   						 } 
+					}); 
+					<?php } ?> 
+					//var a = 90/<?php echo $number_items ?>; 
+					new Masonry('.masonry', {
+						itemSelector: '.grid-item' 
+					});
+				});
+			});
+		</script> 
+	<?php } ?>
+<?php } ?>

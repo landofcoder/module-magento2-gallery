@@ -1,0 +1,45 @@
+<?php
+$collection = $block->getCollection();
+$helper = $this->helper("Lof\Gallery\Helper\Data");
+$id = rand() . time();
+?>
+<?php if($collection){ ?>
+<div class="lof-gallery-slibar block-cats">
+	<div class="gallery-title">
+		<strong><?php echo __('Categories'); ?></strong>
+	</div>
+	<div class="gallery-content">
+		<ul id="block-cats<?php echo $id ?>" class="block-cats">
+		<?php echo $block->getCategoryHtml(); ?>
+		</ul>
+		<script type="text/javascript">
+		require([
+			'jquery',
+			<?php if($this->helper("Lof\All\Helper\Data")->getConfig("enable_bootstrap_js")): ?>
+            "Lof_All/lib/bootstrap/js/bootstrap.min"
+             <?php endif; ?>
+			], function(){
+			jQuery(document).ready(function($){
+				$('#block-cats<?php echo $id ?> .opener').on('click', function(e) {
+					e.preventDefault();
+					var parent = $(this).parents("li").eq(0);
+					$(this).toggleClass('item-active');
+					
+					$(parent).find(".children").eq(0).slideToggle();
+					if($(this).find("i.fa").length > 0) {
+						if($(this).find("i.fa").hasClass("fa-plus-square-o")){
+							$(this).find("i.fa").removeClass("fa-plus-square-o").addClass('fa-minus-square-o');
+						} else {
+							$(this).find("i.fa").removeClass("fa-minus-square-o").addClass('fa-plus-square-o');
+						}
+						
+					} 
+					return false;
+				});
+
+			});
+		});
+		</script>		
+	</div>
+</div>
+<?php } ?>

@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Landofcoder
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the Landofcoder.com license that is
+ * available through the world-wide-web at this URL:
+ * http://landofcoder.com/license
+ * 
+ * DISCLAIMER
+ * 
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ * 
+ * @category   Landofcoder
+ * @package    Lof_Gallery
+ * @copyright  Copyright (c) 2016 Landofcoder (http://www.landofcoder.com/)
+ * @license    http://www.landofcoder.com/LICENSE-1.0.html
+ */
+-->
+<widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Widget:etc/widget.xsd">
+	<widget id="lof_gallery_banner" class="Lof\Gallery\Block\Widget\Banner">
+		<label translate="true">Lof Gallery: Images Gallery</label>
+		<description translate="true">Show Gallery as List layout or Carousel layout</description>
+		<parameters>
+			<parameter name="enable" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+				<label translate="true">Enable</label>
+			</parameter>
+			<parameter name="widget_title" xsi:type="text" visible="true">
+				<label translate="true">Module Title</label>
+				<description translate="true">Empty for hide </description>
+			</parameter>
+			<parameter name="gallery_pretext" xsi:type="text" visible="true">
+				<label translate="true">Pretext</label>
+				<description translate="true">Empty for hide </description>
+			</parameter>
+			<parameter name="layout_mode" xsi:type="select" visible="true" source_model="Lof\Gallery\Model\Config\Source\LayoutMode">
+				<label translate="true">Layout Mode</label>
+				<description translate="true">Choose Layout Mode for your gallery</description>
+			</parameter>
+			<parameter name="layout_products_related" xsi:type="select"  visible="true" source_model="Lof\Gallery\Model\Config\Source\LayoutProductsRelated">
+				<label translate="true">Layout Products Related</label>
+				<depends><parameter name="layout_mode" value="lookbook" /></depends>
+			</parameter>
+			<parameter name="easing_type" xsi:type="select"  visible="true" source_model="Lof\Gallery\Model\Config\Source\EasingType">
+				<label translate="true">Easing Type</label>
+				<depends><parameter name="layout_mode" value="lookbook" /></depends>
+			</parameter>
+			<parameter name="effect" xsi:type="select"  visible="true" source_model="Lof\Gallery\Model\Config\Source\Effect">
+				<label translate="true">Effect</label>
+				<depends><parameter name="layout_mode" value="lookbook" /></depends>
+			</parameter>
+			<parameter name="effect_duration" xsi:type="text"  visible="true">
+				<label translate="true">Effect Duration (in milliseconds)</label>
+				<depends><parameter name="layout_mode" value="lookbook" /></depends>
+			</parameter>
+			<parameter name="number_item_of_col" xsi:type="text"  visible="true">
+				<label translate="true">Number Products In Column</label>
+				<depends><parameter name="layout_products_related" value="owl" /></depends>
+			</parameter>
+
+			<parameter name="number_items" xsi:type="text" visible="true">
+				<label translate="true">Number Item</label>
+				<description>Items in column Masonry</description>
+				<depends><parameter name="layout_mode" value="masonry" /></depends>
+				<value>6</value>
+			</parameter> 
+			<parameter name="enable_networks" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+				<label translate="true">Enable Social Buttons</label>
+				<depends><parameter name="layout_mode" value="masonry" /></depends>
+			</parameter>
+			<parameter name="networks" xsi:type="multiselect" visible="true" source_model="Lof\Gallery\Model\Config\Source\Networks">
+				<label translate="true">Social Buttons</label>
+				<depends><parameter name="layout_mode" value="masonry" /></depends> 
+			</parameter> 
+			<parameter name="widget_height" xsi:type="text" visible="true">
+				<label translate="true">Module Height</label>
+			</parameter>
+			<parameter name="widget_width" xsi:type="text" visible="true">
+				<label translate="true">Module Width</label>
+				<description>Input (Ex : 30% or 400px )</description>
+			</parameter> 
+			<parameter name="thumbnail_height" xsi:type="text" visible="true">
+				<label translate="true">Thumbnail  Height</label>
+			</parameter>
+			<parameter name="thumbnail_width" xsi:type="text" visible="true">
+				<label translate="true">Thumbnail  Width</label>
+			</parameter>
+			<parameter name="limit" xsi:type="text" visible="true">
+				<label translate="true">Limit</label>
+			</parameter>
+			<parameter name="max_items" xsi:type="text" visible="true">
+				<label translate="true">Max Items on a Page (Or a Column if layout = grid/list)</label>
+			</parameter> 
+			<parameter name="categories" xsi:type="multiselect" visible="true" source_model="Lof\Gallery\Model\Config\Source\Categories">
+				<label translate="true">Categories</label>
+			</parameter>
+			<parameter name="grid_heading" xsi:type="conditions" visible="true" class="Lof\Gallery\Block\Adminhtml\System\Config\Form\Field\WidgetHeading">
+				<label translate="true">Grid Settings(Apply for layout grid,lookbook)</label>
+				<depends><parameter name="layout_mode" value="grid" /></depends>
+			</parameter>
+			<parameter name="lg_column_item" xsi:type="text"  visible="true">
+				<label translate="true">Number Column on Large Desktop(Grid/List)</label>
+				<description translate="true"><![CDATA[Large devices Desktops (≥1200px). Use in grid layout and masonry layout]]></description>
+			</parameter>
+			
+			<parameter name="md_column_item" xsi:type="text"  visible="true">
+				<label translate="true">Number Column on Desktop(Grid/List)</label>
+				<description translate="true"><![CDATA[Medium devices Desktops (≥992px)]]></description>
+			</parameter>
+			<parameter name="sm_column_item" xsi:type="text"  visible="true">
+				<label translate="true">Number Column on Tablets(Grid/List)</label> 
+				<description translate="true"><![CDATA[Small devices Tablets (≥768px)]]></description>
+			</parameter>
+			<parameter name="xs_column_item" xsi:type="text"  visible="true">
+				<label translate="true">Number Column on Phones(Grid/List)</label>
+				<description translate="true"><![CDATA[Extra small devices Phones (<768px)]]></description>
+			</parameter>
+			<parameter name="tabs" xsi:type="conditions" visible="true"  class="Lof\Gallery\Block\Adminhtml\Widget\Tab">
+				<label translate="true">Row(customized for each row)</label>
+			</parameter>
+			<parameter name="gallery_heading" xsi:type="conditions" visible="true" class="Lof\Gallery\Block\Adminhtml\System\Config\Form\Field\WidgetHeading">
+				<label translate="true">Gallery Settings</label>
+			</parameter>
+			<parameter name="show_title" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+				<label translate="true">Show Title</label>
+			</parameter>
+			<parameter name="show_gallery_pretext" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+				<label translate="true">Show Pretext</label>
+			</parameter>
+			<parameter name="hover_zoom" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+				<label translate="true">Hover Zoom Image</label>
+			</parameter>
+			<parameter name="show_link" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+				<label translate="true">Show Link</label>
+			</parameter> 
+			<parameter name="enabled_popup" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+				<label translate="true">Enabled Image Popup</label>
+			</parameter> 
+			<parameter name="owlsettings_heading" xsi:type="conditions" visible="true" class="Lof\Gallery\Block\Adminhtml\System\Config\Form\Field\WidgetHeading">
+				<label translate="true">OWL Carousel Settings</label>
+			</parameter>
+			<parameter name="item_height" xsi:type="text" visible="true">
+				<label translate="true">Item Height</label>
+				<description translate="true"><![CDATA[Unit: pixel. Empty to set auto height]]></description>
+				<value>400px</value>
+			</parameter>
+			<parameter name="number_item_percolumn" xsi:type="text" visible="true">
+				<label translate="true">Number of Item per Column</label>
+				<description translate="true"><![CDATA[Multiple Row]]></description>
+				<value>1</value>
+			</parameter>
+			<parameter name="large_max_items" xsi:type="text"  visible="true">
+				<label translate="true">Number Columns On Page (Large display)</label>
+				<description translate="true"><![CDATA[Show number items when screen size 1200px and up]]></description>
+				<value>5</value>
+			</parameter>
+			<parameter name="large_items" xsi:type="text"  visible="true">
+				<label translate="true">Number Columns On Page</label>
+				<description translate="true"><![CDATA[Show number items when screen size between 1199px and 980px]]></description>
+				<value>4</value>
+			</parameter>
+			<parameter name="portrait_items" xsi:type="text"  visible="true">
+				<label translate="true">Number Columns On Page (Portrait tablets)</label>
+				<description translate="true"><![CDATA[Show number items when screen size between 979px and 769px]]></description>
+				<value>4</value>
+			</parameter>
+			<parameter name="tablet_items" xsi:type="text"  visible="true">
+				<label translate="true">Number Columns On Page (Phones to tablets)</label>
+				<description translate="true"><![CDATA[Show number items when screen size between 768px and 641px]]></description>
+				<value>3</value>
+			</parameter>
+			<parameter name="tablet_small_items" xsi:type="text"  visible="true">
+				<label translate="true">Number Columns On Page (Phones to Small tablets)</label>
+				<description translate="true"><![CDATA[Show number items when screen size between 640px and 480px]]></description>
+				<value>3</value>
+			</parameter>
+			<parameter name="mobile_items" xsi:type="text"  visible="true">
+				<label translate="true">Number Columns On Page (Phones)</label>
+				<description translate="true"><![CDATA[Show number items when screen size bellow 480px]]></description>
+				<value>1</value>
+			</parameter>
+			<parameter name="rtl" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+				<label translate="true">Right to Left</label>
+			</parameter>
+			<parameter name="autoplay" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+				<label translate="true">Autoplay</label>
+			</parameter>
+			<parameter name="autoplay_timeout" xsi:type="text" visible="true" >
+				<label translate="true">Autoplay Timeout</label>
+				<depends><parameter name="autoplay" value="1" /></depends>
+				<value>3000</value>
+			</parameter>
+			<parameter name="autoplay_hoverpause" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+				<label translate="true">Autoplay HoverPause</label>
+				<depends><parameter name="autoplay" value="1" /></depends>
+			</parameter>
+			<parameter name="dots" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+				<label translate="true">Show dots navigations</label>
+			</parameter>
+			<parameter name="nav" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+				<label translate="true">Show next/prev buttons.</label>
+			</parameter>
+			<parameter name="loop" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+				<label translate="true">Loop</label>
+				<description translate="true"><![CDATA[Infinity loop. Duplicate last and first items to get loop illusion.]]></description>
+			</parameter>
+			<parameter name="mousewheel" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+				<label translate="true">Enable Mousewheel</label> 
+			</parameter>
+		</parameters>
+	</widget> 
+	<widget id="lof_gallery_slider" class="Lof\Gallery\Block\Widget\Slider">
+		<label translate="true">Lof Gallery : Banner Slider</label>
+		<description translate="true">Show banner slider as Camera</description>
+		<parameters>
+			<parameter name="enable_slider" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+				<label translate="true">Enable</label>
+			</parameter>
+			<parameter name="slider_showtitle" xsi:type="select"  visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+				<label translate="true">Show Title</label>
+			</parameter> 
+			<parameter name="slider_showdesc" xsi:type="select"  visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+				<label translate="true">Show Description Banner</label>
+			</parameter> 
+			<parameter name="slider_show_pretext" xsi:type="select"  visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+				<label translate="true">Show Pretext</label>
+			</parameter> 
+			<parameter name="slider_pretext" xsi:type="text" visible="true">
+				<label translate="true">Pretext</label> 
+			</parameter>
+			<parameter name="widget_title" xsi:type="text" visible="true">
+				<label translate="true">Widget Title</label> 
+			</parameter> 
+			<parameter name="widget_width" xsi:type="text" visible="true">
+				<label translate="true">Widget Width</label> 
+			</parameter>
+			<parameter name="widget_height" xsi:type="text" visible="true">
+				<label translate="true">Widget Height</label> 
+			</parameter>
+			<parameter name="limit" xsi:type="text" visible="true">
+				<label translate="true">Limit Banner in Slider</label>
+			</parameter>
+			<parameter name="categories" xsi:type="multiselect" visible="true" source_model="Lof\Gallery\Model\Config\Source\Categories">
+				<label translate="true">Categories</label>
+			</parameter>
+			<parameter name="slider_minHeight" xsi:type="text" visible="true">
+				<label translate="true">Slider MinHeight</label> 
+			</parameter> 
+			<parameter name="slider_autoAdvance" xsi:type="select"  visible="true"  source_model="Magento\Config\Model\Config\Source\Yesno">
+				<label translate="true">Slider AutoAdvance</label>
+			</parameter>
+			<parameter name="slider_alignment" xsi:type="select"  visible="true"  source_model="Lof\Gallery\Model\Config\Source\SliderAlignment">
+				<label translate="true">Slider Alignment</label>
+			</parameter>
+			<parameter name="slider_mobileAutoAdvance" xsi:type="select"  visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+				<label translate="true">Slider MobileAutoAdvance</label>
+			</parameter>
+			<parameter name="slider_barDirection" xsi:type="select"  visible="true" source_model="Lof\Gallery\Model\Config\Source\SliderBarDirection">
+				<label translate="true">Slider BarDirection</label>
+			</parameter>
+			<parameter name="slider_barPosition" xsi:type="select"  visible="true" source_model="Lof\Gallery\Model\Config\Source\SliderBarPosition">
+				<label translate="true">Slider BarPosition</label>
+			</parameter>
+			<parameter name="slider_effect" xsi:type="multiselect" visible="true" source_model="Lof\Gallery\Model\Config\Source\SliderEffect">
+				<label translate="true">Slider Effect</label>
+				<description translate="true"><![CDATA[you can also use more than one effect, just separate them with commas: 'simpleFade, scrollRight, scrollBottom']]></description>
+			</parameter>
+			<parameter name="cols" xsi:type="text" visible="true">
+				<label translate="true">Cols</label> 
+				<description translate="true"><![CDATA[Some effects, such as mosaic, use 2 options for number of rows and columns.]]></description>
+			</parameter>
+			<parameter name="rows" xsi:type="text" visible="true">
+				<label translate="true">Rows</label> 
+				<description translate="true"><![CDATA[Some effects, such as mosaic, use 2 options for number of rows and columns.]]></description>
+			</parameter>
+			<parameter name="slider_height" xsi:type="text" visible="true">
+				<label translate="true">Slider Height</label> 
+				<description translate="true"><![CDATA[here you can type pixels (for instance '300px'), a percentage (relative to the width of the slideshow, for instance '50%') or auto]]></description>
+			</parameter>
+			<parameter name="slider_navigationHover" xsi:type="select"  visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+				<label translate="true">Slider Hover</label>
+				<description translate="true"><![CDATA[Pause on state hover. Not available for mobile devices]]></description>
+			</parameter>
+			<parameter name="slider_loader" xsi:type="select"  visible="true" source_model="Lof\Gallery\Model\Config\Source\SliderLoader">
+				<label translate="true">Slider Loader</label>
+			</parameter>
+			<parameter name="slider_navigation" xsi:type="select"  visible="true"  source_model="Magento\Config\Model\Config\Source\Yesno">
+				<label translate="true">Slider Navigation</label>
+				<description translate="true"><![CDATA[if true the navigation button (prev, next and play/stop buttons) will be visible, if false they will be always hidden]]></description>
+			</parameter>
+			<parameter name="slider_navigationHover" xsi:type="select"  visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+				<label translate="true">Slider NavigationHover</label>
+				<description translate="true"><![CDATA[if true the navigation button (prev, next and play/stop buttons) will be visible on hover state only, if false they will be visible alwaysh]]></description>
+			</parameter>
+			<parameter name="slider_opacityOnGrid" xsi:type="select"  visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+				<label translate="true">Slider OpacityOnGrid</label>
+			</parameter>
+			<parameter name="slider_overlayer" xsi:type="select"  visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+				<label translate="true">Slider Overlayer</label>
+				<description translate="true"><![CDATA[Decide to put a layer on the images to prevent the users grab them simply by clicking the right button of their mouse (.camera_overlayer)]]></description>
+			</parameter>
+			<parameter name="slider_pagination" xsi:type="select"  visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+				<label translate="true">Slider Pagination</label>
+			</parameter>
+			<parameter name="slider_playPause" xsi:type="select"  visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+				<label translate="true">Slider PlayPause</label>
+			</parameter>
+			<parameter name="slider_pauseOnClick" xsi:type="select"  visible="true"  source_model="Magento\Config\Model\Config\Source\Yesno">
+				<label translate="true">Slider PauseOnClick</label>
+			</parameter>
+			<parameter name="slider_piePosition" xsi:type="select"  visible="true"  source_model="Lof\Gallery\Model\Config\Source\PiePosition">
+				<label translate="true">Slider PiePosition</label>
+			</parameter>
+			<parameter name="slider_time" xsi:type="text" visible="true">
+				<label translate="true">Slider Time</label> 
+			</parameter>
+			<parameter name="slider_thumbnails" xsi:type="select"  visible="true"  source_model="Magento\Config\Model\Config\Source\Yesno">
+				<label translate="true">Slider Thumbnails</label>
+			</parameter>
+		</parameters>
+	</widget>
+</widgets>

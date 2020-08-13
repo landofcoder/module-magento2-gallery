@@ -1,0 +1,390 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Landofcoder
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the Landofcoder.com license that is
+ * available through the world-wide-web at this URL:
+ * http://landofcoder.com/license
+ * 
+ * DISCLAIMER
+ * 
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ * 
+ * @category   Landofcoder
+ * @package    Lof_Gallery
+ * @copyright  Copyright (c) 2016 Landofcoder (http://www.landofcoder.com/)
+ * @license    http://www.landofcoder.com/LICENSE-1.0.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../Config/etc/system_file.xsd">
+	<system>
+		<tab id="landofcoder" translate="label" sortOrder="400">
+			<label><![CDATA[<a href="http://landofcoder.com" target="_BLANK" title=""Magento Marketplace, Opencart Marketplace, Magento 2 Extension, Free Magento Extension, Opencart Advanced Reports">landofcoder.com</a>]]></label>
+		</tab>
+		<section id="lofgallery" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
+			<class>separator-top</class>
+			<label>Gallery</label>
+			<tab>landofcoder</tab>
+			<resource>Lof_Gallery::config_gallery</resource>
+			<group id="general_settings" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
+				<label>General Settings</label>
+				<field id="enable" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Enabled</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field>
+				<field id="url_prefix" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Gallery Url Prefix</label>
+					<validate>validate-identifier</validate>
+					<comment><![CDATA[Must NOT contain any slashes. For example: http://domain.com/gallery]]></comment>
+				</field>
+				<field id="networks_heading" translate="label comment" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Social Buttons</label>
+					<frontend_model>Lof\Gallery\Block\Adminhtml\System\Config\Form\Field\Heading</frontend_model>
+				</field>
+				<field id="enable_networks" translate="label comment" type="select" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Enabled</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field>
+				<field id="networks" translate="label comment" type="multiselect" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Networks</label>
+					<source_model>Lof\Gallery\Model\Config\Source\Networks</source_model>
+					<depends><field id="enable_networks">1</field></depends>
+				</field>
+			</group>
+			<group id="latest_page" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+				<label>Gallery Page</label>	
+				<field id="route" translate="label comment" type="text" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Gallery Page URL Key</label>
+					<validate>validate-identifier</validate>
+					<comment><![CDATA[Empty to disable. Link: http://domain.com/GalleryUrlPrefix/ROUTE+GalleryUrlSuffiX]]></comment>
+				</field>
+				<field id="page_layout" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Page Layout</label>
+					<source_model>Lof\Gallery\Model\Config\Source\PageLayout</source_model>
+				</field>
+				<field id="show_breadcrumbs" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Show Breadcrumbs</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field>
+				<field id="show_toolbartop" translate="label comment" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Show Toolbar Top</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field>
+				<field id="show_toolbarbottom" translate="label comment" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Show Toolbar Bottom</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field>
+				<field id="seo_config_heading" translate="label comment" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>SEO - Search Engine Optimization</label>
+					<frontend_model>Lof\Gallery\Block\Adminhtml\System\Config\Form\Field\Heading</frontend_model>
+				</field>
+				<field id="page_title" type="text" sortOrder="70" translate="label comment" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Page Title</label>
+				</field>
+				<field id="meta_description" type="textarea" sortOrder="80" translate="label comment" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Meta Description</label>
+				</field>
+				<field id="meta_keywords" type="textarea" sortOrder="90" translate="label comment" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Meta Keywords</label>
+				</field>
+				<field id="banner_grid" translate="label comment" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Grid</label>
+					<frontend_model>Lof\Gallery\Block\Adminhtml\System\Config\Form\Field\Heading</frontend_model>
+				</field>
+				<field id="module_title" translate="label comment" type="text" sortOrder="110" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Module Tilte</label>
+					<comment><![CDATA[Empty for hide]]></comment>
+				</field>
+				<field id="theme" translate="label comment" type="select" sortOrder="120" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Select Template</label>
+					<source_model>Lof\Gallery\Model\Config\Source\Themes</source_model>
+				</field>
+				<field id="lg_column_item" translate="label comment" type="select" sortOrder="130" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Number Column on Large Desktop</label>
+					<comment><![CDATA[Large devices Desktops (≥1200px). Use in grid layout and masonry layout]]></comment>
+					<source_model>Lof\Gallery\Model\Config\Source\Gridcolumns</source_model>
+				</field>
+				<field id="md_column_item" translate="label comment" type="select" sortOrder="140" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Number Column on Desktop</label>
+					<comment><![CDATA[Medium devices Desktops (≥992px)]]></comment>
+					<source_model>Lof\Gallery\Model\Config\Source\Gridcolumns</source_model>
+				</field>
+				<field id="sm_column_item" translate="label comment" type="select" sortOrder="150" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Number Column on Tablets</label>
+					<source_model>Lof\Gallery\Model\Config\Source\Gridcolumns</source_model>
+					<comment><![CDATA[Small devices Tablets (≥768px)]]></comment>
+				</field>
+				<field id="xs_column_item" translate="label comment" type="select" sortOrder="160" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Number Column on Phones</label>
+					<source_model>Lof\Gallery\Model\Config\Source\Gridcolumns</source_model>
+					<comment><![CDATA[Extra small devices Phones (<768px)]]></comment>
+				</field>
+				<field id="limit" translate="label comment" type="text" sortOrder="170" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Limit</label>
+				</field>
+				<field id="max_items" translate="label comment" type="text" sortOrder="180" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Max Item on a Page</label>
+				</field>
+			</group>
+			<group id="banner_detail" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+				<label>Banner Detail</label>
+				<field id="show_related" translate="label comment" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Show Related Product</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field>
+
+				<field id="show_name_product" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Show Product Name</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field>
+				<field id="show_price_product" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Show Product Price</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field>
+				<field id="show_addtocart" translate="label comment" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Show Add To Cart</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field>
+				<field id="show_wishlist" translate="label comment" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Show Wish List</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field>
+				<field id="show_compare" translate="label comment" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Show Compare</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field>
+				<field id="show_review" translate="label comment" type="select" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Show Review</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field>
+				<field id="page_layout" translate="label comment" type="select" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Page Layout</label>
+					<source_model>Lof\Gallery\Model\Config\Source\PageLayout</source_model>
+				</field>
+				<field id="owl_settings" translate="label comment" type="text" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Owl Carousel Settings</label>
+					<frontend_model>Lof\Gallery\Block\Adminhtml\System\Config\Form\Field\Heading</frontend_model>
+				</field>
+				<field id="enable_owl_carousel" translate="label comment" type="select" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Use OWL Carousel</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field>
+				<field id="rtl" translate="label comment" type="select" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Enable Right To Left</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field>
+				<field id="nav" translate="label comment" type="select" sortOrder="110" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Enable Button Navigation</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field>
+				<field id="loop" translate="label comment" type="select" sortOrder="120" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Enable Loop Carousel</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field>
+				<field id="dots" translate="label comment" type="select" sortOrder="130" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Show dots navigations</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field>
+				<field id="mouse_drag" translate="label comment" type="select" sortOrder="140" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Enable Mouse Drag</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field>
+				<field id="touch_drag" translate="label comment" type="select" sortOrder="150" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Enable Touch Drag</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field>
+				<field id="margin_item" translate="label comment" type="text" sortOrder="160" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Margin Each Items</label>
+					<comment><![CDATA[Default 0]]></comment>
+				</field>
+				<field id="default_items" translate="label comment" type="text" sortOrder="170" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Number items on page (Default)</label>
+					<comment><![CDATA[Show number items when screen size between 1199px and 980px]]></comment>
+				</field>
+				<field id="mobile_items" translate="label comment" type="text" sortOrder="180" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Number Columns On Page (Phones)</label>
+					<comment><![CDATA[Show number items when screen size bellow 480px]]></comment>
+				</field>
+				<field id="tablet_small_items" translate="label comment" type="text" sortOrder="190" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Number Columns On Page (Phones to Small tablets)</label>
+					<comment><![CDATA[Show number items when screen size between 641px and 480px]]></comment>
+				</field>
+				<field id="tablet_items" translate="label comment" type="text" sortOrder="200" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Number Columns On Page (Phones to tablets)</label>
+					<comment><![CDATA[Show number items when screen size between 768px and 641px]]></comment>
+				</field>
+				<field id="portrait_items" translate="label comment" type="text" sortOrder="210" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Number Columns On Page (Portrait tablets)</label>
+					<comment><![CDATA[Show number items when screen size between 979px and 769px]]></comment>
+				</field>
+				<field id="large_items" translate="label comment" type="text" sortOrder="220" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Number Columns On Page (Large display)</label>
+					<comment><![CDATA[Show number items when screen size 1200px and up]]></comment>
+				</field>
+				<field id="custom_items" translate="label comment" type="text" sortOrder="230" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Custom Number Items with screen size</label>
+					<comment><![CDATA[For example: [320, 1], [360, 1], [480, 1], [568, 2], [600, 2], [640, 2], [768, 2], [900, 3], [960, 3], [1024, 3] empty to disable]]></comment>
+				</field>
+				<field id="autoplay" translate="label comment" type="select" sortOrder="240" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>AutoPlay</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field>
+				<field id="autoplay_timeout" translate="label comment" type="text" sortOrder="250" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>AutoPlay TimeOut</label>
+				</field>
+				<field id="slide_by" translate="label comment" type="text" sortOrder="260" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Slide By</label>
+					<comment><![CDATA[Number Items will slide on a time. Default: 1]]></comment>
+				</field>
+				<field id="mousewheel" translate="label comment" type="select" sortOrder="270" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Enable Mousewheel</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field>
+				<field id="number_item_percolumn" translate="label comment" type="text" sortOrder="280" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Number items on column</label>
+					<comment><![CDATA[Number of Item per Column]]></comment>
+				</field>
+				<field id="thumbnail_width" translate="label comment" type="text" sortOrder="290" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Thumbnail width</label>
+				</field>
+				<field id="thumbnail_height" translate="label comment" type="text" sortOrder="300" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Thumbnail height</label>
+				</field>
+				<field id="zoom_image" translate="label comment" type="select" sortOrder="270" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Hover Zoom Image</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field>
+			</group>
+			<group id="in_product" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+				<label>Products</label>
+				<field id="banners_in_product" translate="label comment" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Banner in product</label>
+					<frontend_model>Lof\Gallery\Block\Adminhtml\System\Config\Form\Field\Heading</frontend_model>
+				</field>
+				<field id="enable" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Enabled</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field>
+				<field id="enable_gallery" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Enabled Gallery Block</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field>
+				<field id="module_title" translate="label comment" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Module Tilte</label>
+					<comment><![CDATA[Empty for hide]]></comment>
+				</field>
+				<field id="theme" translate="label comment" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Select Template</label>
+					<source_model>Lof\Gallery\Model\Config\Source\Themes</source_model>
+				</field>
+				<field id="module_height" translate="label comment" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Module height</label>
+				</field>
+				<field id="module_width" translate="label comment" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Module width</label>
+				</field>
+				<field id="thumbnail_mode" translate="label comment" type="select" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Render Thumbnail</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field>
+				<field id="thumbnail_height" translate="label comment" type="text" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Thumbnail height</label>
+				</field>
+				<field id="thumbnail_width" translate="label comment" type="text" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Thumbnail width</label>
+				</field>
+				<field id="limit" translate="label comment" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Limit</label>
+				</field>
+				<field id="owl_settings" translate="label comment" type="text" sortOrder="130" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Owl Carousel in Product</label>
+					<frontend_model>Lof\Gallery\Block\Adminhtml\System\Config\Form\Field\Heading</frontend_model>
+				</field>
+				<field id="enable_owl_carousel" translate="label comment" type="select" sortOrder="140" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Use OWL Carousel</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field>
+				<field id="rtl" translate="label comment" type="select" sortOrder="150" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Enable Right To Left</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field>
+				<field id="nav" translate="label comment" type="select" sortOrder="160" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Enable Button Navigation</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field>
+				<field id="loop" translate="label comment" type="select" sortOrder="170" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Enable Loop Carousel</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field>
+				<field id="dots" translate="label comment" type="select" sortOrder="180" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Show dots navigations</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field>
+				<field id="mouse_drag" translate="label comment" type="select" sortOrder="190" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Enable Mouse Drag</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field>
+				<field id="touch_drag" translate="label comment" type="select" sortOrder="200" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Enable Touch Drag</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field>
+				<field id="margin_item" translate="label comment" type="text" sortOrder="210" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Margin Each Items</label>
+					<comment><![CDATA[Default 0]]></comment>
+				</field>
+				<field id="default_items" translate="label comment" type="text" sortOrder="220" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Number items on page (Default)</label>
+					<comment><![CDATA[Show number items when screen size between 1199px and 980px]]></comment>
+				</field>
+				<field id="mobile_items" translate="label comment" type="text" sortOrder="230" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Number Columns On Page (Phones)</label>
+					<comment><![CDATA[Show number items when screen size bellow 480px]]></comment>
+				</field>
+				<field id="tablet_small_items" translate="label comment" type="text" sortOrder="240" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Number Columns On Page (Phones to Small tablets)</label>
+					<comment><![CDATA[Show number items when screen size between 641px and 480px]]></comment>
+				</field>
+				<field id="tablet_items" translate="label comment" type="text" sortOrder="250" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Number Columns On Page (Phones to tablets)</label>
+					<comment><![CDATA[Show number items when screen size between 768px and 641px]]></comment>
+				</field>
+				<field id="portrait_items" translate="label comment" type="text" sortOrder="260" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Number Columns On Page (Portrait tablets)</label>
+					<comment><![CDATA[Show number items when screen size between 979px and 769px]]></comment>
+				</field>
+				<field id="large_items" translate="label comment" type="text" sortOrder="270" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Number Columns On Page (Large display)</label>
+					<comment><![CDATA[Show number items when screen size 1200px and up]]></comment>
+				</field>
+				<field id="custom_items" translate="label comment" type="text" sortOrder="280" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Custom Number Items with screen size</label>
+					<comment><![CDATA[For example: [320, 1], [360, 1], [480, 1], [568, 2], [600, 2], [640, 2], [768, 2], [900, 3], [960, 3], [1024, 3] empty to disable]]></comment>
+				</field>
+				<field id="autoplay" translate="label comment" type="select" sortOrder="290" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>AutoPlay</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field>
+				<field id="speed" translate="label comment" type="text" sortOrder="300" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>AutoPlay TimeOut</label>
+					<comment><![CDATA[Determines the duration of the transition in milliseconds.If less than 10, the number is interpreted as a speed (pixels/millisecond).This is probably desirable when scrolling items with variable sizes]]></comment>
+				</field>
+				<field id="slide_by" translate="label comment" type="text" sortOrder="310" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Slide By</label>
+					<comment><![CDATA[Number Items will slide on a time. Default: 1]]></comment>
+				</field>
+				<field id="mousewheel" translate="label comment" type="select" sortOrder="320" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Enable Mousewheel</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field>
+				<field id="number_item_percolumn" translate="label comment" type="text" sortOrder="330" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Number items on column</label>
+					<comment><![CDATA[Number of Item per Column]]></comment>
+				</field>
+			</group>
+		</section>
+	</system>
+</config>

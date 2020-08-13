@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Landofcoder
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the Landofcoder.com license that is
+ * available through the world-wide-web at this URL:
+ * http://landofcoder.com/license
+ * 
+ * DISCLAIMER
+ * 
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ * 
+ * @category   Landofcoder
+ * @package    Lof_Gallery
+ * @copyright  Copyright (c) 2016 Landofcoder (http://www.landofcoder.com/)
+ * @license    http://www.landofcoder.com/LICENSE-1.0.html
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="product_tabs">
+            <block class="Lof\Gallery\Block\Adminhtml\Banner\Edit\Tab" name="product.banner">
+                <arguments>
+                    <argument name="label" xsi:type="string" translate="true">Banners</argument>
+                    <argument name="url" xsi:type="url" path="lofgallery/banner/gallery">
+                        <param name="_current">1</param>
+                    </argument>
+                    <argument name="class" xsi:type="string">ajax</argument>
+                    <argument name="group_code" xsi:type="string">advanced</argument>
+                </arguments>
+            </block>
+            <action method="addTab">
+                <argument name="name" xsi:type="string">product-banner</argument>
+                <argument name="block" xsi:type="string">product.banner</argument>
+            </action>
+        </referenceBlock>
+    </body>
+</page>

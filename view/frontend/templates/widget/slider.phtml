@@ -1,0 +1,139 @@
+<?php
+$collection            = $this->getCollection();
+$helper                = $this->helper("Lof\Gallery\Helper\Data");
+$imageHelper           = $this->helper("Lof\Gallery\Helper\Image");
+
+
+$enable_slider         	 	= $this->getConfig("enable_slider");
+$slider_showtitle       	= $this->getConfig("slider_showtitle");
+$slider_pretext				= $this->getConfig("slider_pretext");
+$slider_showdesc  			= $this->getConfig("slider_showdesc");
+$widget_title          		= $this->getConfig("widget_title",'Slider');
+$slider_show_pretext        = $this->getConfig("slider_show_pretext");
+$widget_width           	= $this->getConfig("widget_width");
+$widget_height          	= $this->getConfig("widget_height");
+$limit        				= $this->getConfig("limit",50);		
+$categories             	= $this->getConfig("categories");
+$slider_minHeight      	 	= $this->getConfig("slider_minHeight","200px");
+$slider_autoAdvance    	 	= $this->getConfig("slider_autoAdvance");
+$slider_alignment       	= $this->getConfig("slider_alignment");
+$slider_mobileAutoAdvance   = $this->getConfig("slider_mobileAutoAdvance");
+$slider_barDirection        = $this->getConfig("slider_barDirection");
+$slider_barPosition         = $this->getConfig("slider_barPosition"); 
+$slider_effect              = $this->getConfig("slider_effect");
+$slider_height              = $this->getConfig("slider_height");
+$slider_hover 				= $this->getConfig("slider_hover");
+$slider_loader      	 	= $this->getConfig("slider_loader");
+$slider_navigation          = $this->getConfig("slider_navigation");
+$slider_navigationHover     = $this->getConfig("slider_navigationHover");
+$slider_opacityOnGrid       = $this->getConfig("slider_opacityOnGrid");
+$slider_overlayer    		= $this->getConfig("slider_overlayer");
+$slider_pagination          = $this->getConfig("slider_pagination");
+$slider_playPause           = $this->getConfig("slider_playPause");
+$slider_pauseOnClick        = $this->getConfig("slider_pauseOnClick");
+$slider_piePosition      	= $this->getConfig("slider_piePosition"); 
+$slider_time                = $this->getConfig("slider_time");
+$slider_thumbnails			= $this->getConfig("slider_thumbnails");
+$rows						= $this->getConfig("rows",4);
+$cols						= $this->getConfig("cols",6);
+$route          	   		= $helper->getConfig("latest_page/route");
+if($route !=''){}else{
+	$route = 'latest';
+}
+
+/** Gallery settings **/
+$show_title            = $this->getConfig("show_title");
+$show_link             = $this->getConfig("show_link");
+$show_description      = $this->getConfig("show_description");
+$crop_description      = $this->getConfig("crop_description");
+$enabled_popup         = $this->getConfig("enabled_popup");
+$html                  = '';
+
+
+$total = $collection->count();
+
+$style = "";
+if( $widget_height !="" ){
+	$style .=";height:".(int) $this->getConfig("widget_height")."px";
+}
+if( $widget_width   !="" ){
+	$style .=";width:". $this->getConfig("widget_width")."";
+}else{
+	$style .=";width:100%";
+}
+$bannerid = 'banner' . time().rand();
+
+?>
+
+
+<?php if($total && $enable_slider) { ?>
+	<div class="lof-gallery" style="margin-bottom: 50px;position:relative;float: left;<?php echo $style ?>"> 
+		<?php if($slider_showtitle){?>
+			<div>
+			<div class="gallery_title">
+				<h3><span><?php echo $widget_title; ?></span></h3> 
+			</div>
+			<div class="gallery_pretext">
+				<?php if($slider_show_pretext){?>
+					<span><?php echo $slider_pretext?></span>
+				<?php }?>
+			</div>
+			</div>
+			<?php }?>
+			<div class="gallery_content">
+				<div class="camera_wrap">
+					<?php foreach ($collection as  $k => $image ){ ?> 
+						<?php if($image['show_image'] == 'image_file'){
+								$image_href = $imageHelper->getBaseMediaUrl().''.$image['file'];
+						}else{
+							$image_href = $image['link'];
+						}
+						$open_link = isset($image['open_link'])?$image['open_link']:"";
+						$banner_link = $helper->getBannerUrl($route.'/'.$image['identifier']);
+						if($open_link){
+							$banner_link = $open_link;
+						}
+						?>
+						<div data-src="<?php echo $image_href?>" data-thumb="<?php echo $imageHelper->resizeImage($image_href, 50, 70) ?>"> 
+						<?php if($slider_showdesc){ ?>
+							 <div class="camera_caption fadeFromBottom">
+                    			<a target="_blank" style="color: #fff;text-decoration: none;" href="<?php echo $banner_link; ?>"><?php echo $image['label']; ?></a> 
+                			</div> 
+                			<?php } ?>
+						</div> 
+						<?php } ?>  
+				</div>
+			</div> 
+			<?php } ?>
+			<script>
+				require([
+					'jquery',
+					'Lof_Gallery/js/camera.min'
+					], function($){
+						jQuery(document).ready(function() {
+							jQuery('.camera_wrap').camera({
+ 								alignment: '<?php echo $slider_alignment; ?>', 
+ 								minHeight: '<?php echo $slider_minHeight ;?>',
+ 								autoAdvance:<?php echo $slider_autoAdvance?"true":"false" ?>,
+ 								mobileAutoAdvance:<?php echo $slider_mobileAutoAdvance?"true":"false" ?>,
+ 								barDirection:'<?php echo $slider_barDirection ;?>',
+ 								barPosition:'<?php echo $slider_barPosition ; ?>',
+ 								fx:'<?php echo $slider_effect; ?>',
+ 								height:'<?php echo $slider_height ; ?>',
+ 								loader:'<?php echo $slider_loader; ?>',
+ 								navigation:<?php echo $slider_navigation?"true":"false" ?>,
+ 								navigationHover:<?php echo $slider_navigationHover?"true":"false" ?>,
+ 								opacityOnGrid:<?php echo $slider_opacityOnGrid?"true":"false" ?>,
+ 								overlayer:<?php echo $slider_overlayer?"true":"false" ?>,
+ 								pagination:<?php echo $slider_pagination?"true":"false" ?>,
+ 								playPause:<?php echo $slider_playPause?"true":"false" ?>,
+ 								pauseOnClick:<?php echo $slider_pauseOnClick?"true":"false" ?>,
+ 								piePosition:'<?php echo $slider_piePosition ; ?>',
+ 								thumbnails: <?php echo $slider_thumbnails?"true":"false" ?>,
+ 								time:<?php echo $slider_time ;?>,
+ 								rows:<?php echo $rows;?>,
+ 								cols:<?php echo $cols;?>
+							});
+						});
+					});
+				</script>

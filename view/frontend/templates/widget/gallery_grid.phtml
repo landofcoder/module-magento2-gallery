@@ -1,0 +1,209 @@
+<?php
+$collection            = $this->getCollection();
+$helper                = $this->helper("Lof\Gallery\Helper\Data");
+$imageHelper           = $this->helper("Lof\Gallery\Helper\Image");
+
+/** General Settings **/
+// $dateFormat            = $helper->getConfig("general_settings/dateformat");
+// $twitterUsername       = $helper->getConfig("general_settings/twitter_username");
+// $networks      = array_flip(explode(",", $helper->getConfig("general_settings/networks")));
+$widget_title     = $this->getConfig("widget_title");
+$enable           = $this->getConfig("enable");
+$layout_mode      = $this->getConfig("layout_mode");
+$themes           = $this->getConfig("theme");
+$widget_height    = $this->getConfig("widget_height");
+$widget_width     = $this->getConfig("widget_width");
+$thumbnail_mode   = $this->getConfig("thumbnail_mode");		
+$crop_image       = $this->getConfig("crop_image");
+$thumbnail_height = $this->getConfig("thumbnail_height");
+$thumbnail_width  = $this->getConfig("thumbnail_width");
+$limit_item       = $this->getConfig("limit_item");
+$source           = $this->getConfig("source");
+$image_folder     = $this->getConfig("image_folder");
+$module_template  = $this->getConfig("module_template");
+$pretext          = $this->getConfig("gallery_pretext");
+$show_pretext     = $this->getConfig("show_gallery_pretext");
+/** Owl Carousel Settings **/
+$item_height           = (int)$this->getConfig("item_height");
+$enableNetworks        = $this->getConfig("show_socialnetwork");
+$number_item_percolumn = $this->getConfig("number_item_percolumn");
+$large_max_items       = $this->getConfig("large_max_items");
+$large_items           = $this->getConfig("large_items");
+$portrait_items        = $this->getConfig("portrait_items");
+$tablet_items          = $this->getConfig("tablet_items");
+$tablet_small_items    = $this->getConfig("tablet_small_items");
+$mobile_items          = $this->getConfig("mobile_items");
+$rtl                   = $this->getConfig("rtl");
+$autoplay              = $this->getConfig("autoplay");
+$autoplay_timeout      = $this->getConfig("autoplay_timeout");
+$autoplay_hoverpause   = $this->getConfig("autoplay_hoverpause");
+$dots                  = $this->getConfig("dots");
+$nav                   = $this->getConfig("nav");
+$loop                  = $this->getConfig("loop");
+$route                 = $helper->getConfig("latest_page/route");
+if($route !=''){}else{
+	$route = 'latest';
+}
+
+/** Gallery settings **/
+$hover_zoom				= $this->getConfig("hover_zoom");
+$show_title            = $this->getConfig("show_title");
+$show_link             = $this->getConfig("show_link"); 
+$enabled_popup         = $this->getConfig("enabled_popup");
+$html                  = '';
+
+$itemsperpage       = (int)$this->getConfig('max_items');
+$lg_column_item     = (int)$this->getConfig('lg_column_item',1);
+$md_column_item     = (int)$this->getConfig('md_column_item',1);
+$sm_column_item     = (int)$this->getConfig('sm_column_item',1);
+$xs_column_item     = (int)$this->getConfig('xs_column_item',1);
+$loop_rows 			= $this->getTabs();
+$lg_column          = 12/$lg_column_item;
+$md_column          = 12/$md_column_item;
+$sm_column          = 12/$sm_column_item;
+$xs_column          = 12/$xs_column_item;
+
+
+
+$cols 				   = (int)$this->getConfig("max_items", 1);
+$cols 				   = $cols?$cols:4;
+$span = 12/$cols;
+$small_span = 4;
+
+$i = 1;
+$x = 0;
+$total = $collection->count();
+
+$style = "";
+if( $widget_height !="" ){
+	$style .=";height:".(int) $this->getConfig("widget_height")."px";
+}
+if( $widget_width   !="" ){
+	$style .=";width:". $this->getConfig("widget_width")."";
+}
+$bannerid = 'banner' . time().rand();
+
+?>
+
+<?php if($enable){ ?>
+	<?php if($total) { ?>
+		<div class="lof-gallery gallery_grid<?php echo $bannerid;?> <?php echo $themes; ?>" style="position:relative;float: left;<?php echo $style ?>"> 
+			<?php if($widget_title && $show_title){?>
+				<div>
+					<div class="gallery_title">
+						<h3><span><?php echo $widget_title; ?></span></h3> 
+					</div>
+					<div class="gallery_pretext">
+						<?php if($show_pretext){?>
+							<span><?php echo $pretext; ?></span>
+							<?php }?>
+						</div>
+					</div>
+					<?php }?>
+					<div class="gallery_content">
+						<div >
+							
+							<?php $a= 0 ; $r=0; foreach ($collection as  $k => $image ){ ?>
+								<?php 
+								if($image['show_image'] == 'image_file'){
+									$image_link =	$imageHelper->getBaseMediaUrl().''.$image['file']; 
+									$image_href = $imageHelper->getBaseMediaUrl().''.$image['file'];
+								}else{
+									$image_link = $image['link'];
+									$image_href = $image['link'];
+								} 
+								
+								if(isset($this->getTabs()[$r])) {
+									$lg_column_item = $this->getTabs()[$r]["large_desktop"];
+									if($this->getTabs()[$r]["large_desktop"] == $a) {
+										$r++;
+										$a=0;
+									}
+									
+								}
+								$open_link = isset($image['open_link'])?$image['open_link']:"";
+								$banner_link = $helper->getBannerUrl($route.'/'.$image['identifier']);
+								if($open_link){
+									$banner_link = $open_link;
+								} 
+								?>
+
+								<?php  if( $lg_column_item == 1 || $a%$lg_column_item == 0){  ?>
+									<!-- START ROW -->
+									<div class="row">
+										<?php } ?>
+										<div  style="margin-bottom: 15px;" <?php echo $this->getCol($r); ?> > 
+   							<?php 
+								if($image['video_id']){
+									$video = 1;
+									if($image['video_type'] == 1){
+										$image_href = 'https://www.youtube.com/embed/'.$image['video_id'].'?autoplay=1'; ?>
+									<a class="<?php if($hover_zoom){ ?>zoom <?php } ?> fancybox fancybox1" data-fancybox-group="group01" title="" data-fancybox-type="iframe" href="<?php echo $image_href; ?>"> 
+									<img src="<?php echo $image_link;?>" alt="<?php echo $image['title']; ?>" />
+									</a>
+								<?php }else{ 
+									$image_href = 'https://player.vimeo.com/video/'.$image['video_id'].'?autoplay=1';?>
+									<a class="<?php if($hover_zoom){ ?>zoom <?php } ?> fancybox fancybox1" data-fancybox-group="group01" title="" data-fancybox-type="iframe" href="<?php echo $image_href; ?>">  
+									<img src="<?php echo $image_link;?>" alt="<?php echo $image['title']; ?>" />
+									</a>
+								<?php } 
+								} else{ ?>
+									<a class="<?php if($hover_zoom){ ?>zoom<?php } ?> fancybox-button " href="<?php echo $image_href;?>" alt="<?php echo $image['title'];?>" title="<?php echo $image['title']; ?>" rel="fancybox-button" data-filter="category<?php echo $image['id'] ?>">
+									<img  src="<?php echo $image_link;?>" alt="<?php echo $image['title']; ?>" alt="<?php echo $image['title']; ?>"/>
+									</a>  
+								<?php } ?>
+ 
+								<?php if($show_link){?>
+									<div style="text-align: center;"><a target="_blank" class="banner-link" href="<?php echo $banner_link; ?>"><?php echo $image['title']; ?></a>	
+									</div>	
+									<?php } ?>		
+								</div>
+								<?php if( $lg_column_item == 1 || ($a+1)%$lg_column_item == 0 || $i == $total ) {  ?>
+								  <!-- END ROW -->
+								  	</div>
+								<?php } ?>
+								<?php $i++; $x++; $a++; ?>
+								<?php } ?>
+							
+						</div>
+					</div> 
+				</div>
+			<script>
+				require([
+					'jquery',
+					'Lof_All/lib/fancybox/jquery.fancybox' 
+					], function(){
+						jQuery(document).ready(function() {
+
+							<?php if($enabled_popup){ ?>
+								jQuery(".gallery_grid<?php echo $bannerid;?> .fancybox-button").fancybox({
+									openEffect : 'elastic', 
+									autoResize:false,
+									prevEffect		: 'none',
+									nextEffect		: 'none',
+									closeBtn		: false,
+									autoCenter: false,
+									helpers: {
+										overlay: {
+											locked: false
+										}
+									}
+								});  
+								jQuery(".gallery_grid<?php echo $bannerid;?> .fancybox1").fancybox({ 
+									arrows : false,
+									autoCenter: false, 
+									helpers: {
+										overlay: {
+											locked: false
+										} 
+									},
+									iframe: {
+			        					preload: false
+			   						 } 
+								}); 
+									<?php } ?>		
+							});
+					});
+				</script>
+				<?php } ?>
+			<?php } ?>

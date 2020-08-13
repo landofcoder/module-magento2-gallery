@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Landofcoder
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the Landofcoder.com license that is
+ * available through the world-wide-web at this URL:
+ * http://landofcoder.com/license
+ * 
+ * DISCLAIMER
+ * 
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ * 
+ * @category   Landofcoder
+ * @package    Lof_Gallery
+ * @copyright  Copyright (c) 2016 Landofcoder (http://www.landofcoder.com/)
+ * @license    http://www.landofcoder.com/LICENSE-1.0.html
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+	<body>
+		<referenceContainer name="sidebar.main">
+			<block class="Lof\Gallery\Block\Category\CategoryList" name="lofgallery.category.categorylist.main" template="Lof_Gallery::category/categorylist.phtml" before="-"/>
+			<block class="Magento\Framework\View\Element\Template" name="lofgallery.searchform.main" template="Lof_Gallery::search/form.phtml"/>
+		</referenceContainer>
+		<referenceContainer name="content">
+			<block class="Lof\Gallery\Block\Category\BannerGrid" name="lofgallery.gallery.view" template="Lof_Gallery::category/bannergrid.phtml" >
+				<block class="Lof\Gallery\Block\Toolbar" name="lofgallery_toolbar" template="Lof_Gallery::toolbar.phtml">
+					<block class="Magento\Theme\Block\Html\Pager" name="banner_list_toolbar_pager"/>
+				</block>
+			</block>
+		</referenceContainer>
+	</body>
+</page>
